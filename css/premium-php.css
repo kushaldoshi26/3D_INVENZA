@@ -1,0 +1,169 @@
+/* ====================================================
+   3D INVENZA — Premium PHP Design System
+   Unifying Admin & Keychain Systems with Core Aesthetic
+   ==================================================== */
+
+:root {
+  /* Core Colors */
+  --bg: #020812;
+  --sidebar: rgba(5, 12, 28, 0.95);
+  --card: rgba(8, 18, 38, 0.85);
+  --surface: rgba(14, 24, 42, 0.70);
+  
+  /* Brand Accents */
+  --cyan: #00f5ff;
+  --cyan-dim: rgba(0, 245, 255, 0.08);
+  --cyan-glow: rgba(0, 245, 255, 0.20);
+  --violet: #8b5cf6;
+  --violet-dim: rgba(139, 92, 246, 0.10);
+  --orange: #fb923c;
+  --orange-dim: rgba(251, 146, 60, 0.10);
+  --green: #34d399;
+  
+  /* Borders */
+  --border: rgba(0, 245, 255, 0.1);
+  --border-strong: rgba(0, 245, 255, 0.25);
+  
+  /* Typography */
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  /* Transitions */
+  --r: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Base Reset ── */
+body {
+  background: var(--bg);
+  color: #e0f2fe;
+  font-family: var(--font-body);
+  margin: 0;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 245, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Premium Card Style ── */
+.premium-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  transition: var(--r);
+  overflow: hidden;
+  position: relative;
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.3;
+}
+
+.premium-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 20px 40px rgba(0, 245, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+/* ── Premium Buttons ── */
+.premium-btn {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--cyan);
+  cursor: pointer;
+  transition: var(--r);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.premium-btn:hover {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  box-shadow: 0 0 15px var(--cyan-glow);
+}
+
+.premium-btn-primary {
+  background: linear-gradient(135deg, var(--orange), #ea580c);
+  color: white;
+  border: none;
+}
+
+/* ── Professional Data Tables ── */
+.premium-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.premium-table th {
+  padding: 14px 20px;
+  background: rgba(0, 245, 255, 0.03);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(224, 242, 254, 0.6);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.premium-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0, 245, 255, 0.05);
+  font-size: 0.85rem;
+  color: rgba(224, 242, 254, 0.9);
+}
+
+/* ── Sidebar & Layout ── */
+.sb-link {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: var(--r);
+}
+
+.sb-link.active, .sb-link:hover {
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  border: 1px solid rgba(0, 245, 255, 0.15);
+}
+
+/* ── Forms ── */
+.premium-input {
+  background: rgba(0, 8, 24, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-family: var(--font-body);
+  transition: var(--r);
+}
+
+.premium-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+  outline: none;
+}

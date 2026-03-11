@@ -121,88 +121,57 @@ $status_colors = [
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/premium-php.css" />
   <style>
-    :root {
-      --bg:#020812; --card:rgba(10,20,40,0.9); --cyan:#00f5ff;
-      --cyan-d:rgba(0,245,255,0.08); --violet:#7c3aed;
-      --orange:#f97316; --border:rgba(0,245,255,0.12);
-      --text:#e0f2fe; --muted:rgba(224,242,254,0.55);
-      --font-d:'Orbitron',monospace; --font-b:'Inter',sans-serif;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:15px;line-height:1.6;min-height:100vh}
-    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
-    /* LOGIN */
-    .login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;position:relative;z-index:1}
-    .login-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 40px;width:100%;max-width:420px;text-align:center;backdrop-filter:blur(20px)}
-    .login-logo{font-family:var(--font-d);font-size:1.2rem;font-weight:700;color:var(--cyan);margin-bottom:8px}
-    .login-sub{font-size:0.8rem;color:var(--muted);margin-bottom:32px;font-family:var(--font-d);text-transform:uppercase;letter-spacing:0.1em}
-    .login-input{width:100%;padding:14px 16px;background:rgba(0,245,255,0.03);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-b);font-size:1rem;outline:none;margin-bottom:16px;transition:0.3s}
-    .login-input:focus{border-color:var(--cyan);background:rgba(0,245,255,0.07)}
-    .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--orange),#ea580c);color:#fff;font-family:var(--font-d);font-size:0.8rem;font-weight:700;letter-spacing:0.1em;border:none;border-radius:8px;cursor:pointer;transition:0.3s}
-    .login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(249,115,22,0.3)}
-    .login-err{color:#f87171;font-size:0.85rem;margin-bottom:12px}
-    /* ADMIN */
-    .admin-wrap{max-width:1400px;margin:0 auto;padding:32px 24px;position:relative;z-index:1}
-    .admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
-    .admin-title{font-family:var(--font-d);font-size:1.1rem;font-weight:700;color:var(--cyan);letter-spacing:0.05em}
-    .admin-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn-sm{padding:8px 16px;border-radius:8px;font-family:var(--font-d);font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
-    .btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted)}
-    .btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
-    .btn-danger{background:transparent;border:1px solid rgba(239,68,68,0.3);color:#f87171}
-    .btn-danger:hover{background:rgba(239,68,68,0.1)}
-    /* STATS ROW */
-    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
-    @media(max-width:640px){.stats-row{grid-template-columns:1fr 1fr}}
-    .stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;backdrop-filter:blur(20px)}
-    .stat-box-num{font-family:var(--font-d);font-size:2rem;font-weight:900;line-height:1}
-    .stat-box-label{font-size:0.7rem;color:var(--muted);margin-top:6px;letter-spacing:0.05em}
-    /* FILTER BAR */
-    .filter-bar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
-    .search-input{flex:1;min-width:220px;padding:10px 16px;background:rgba(0,245,255,0.03);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-b);font-size:0.9rem;outline:none}
-    .search-input:focus{border-color:var(--cyan)}
-    .filter-select{padding:10px 14px;background:rgba(0,245,255,0.03);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-d);font-size:0.7rem;outline:none;cursor:pointer}
-    .filter-select option{background:#0a1428}
-    /* TABLE */
-    .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;backdrop-filter:blur(20px)}
-    .table-header{padding:16px 24px;border-bottom:1px solid var(--border);font-family:var(--font-d);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--cyan)}
-    table{width:100%;border-collapse:collapse}
-    th{padding:12px 16px;font-family:var(--font-d);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:rgba(0,245,255,0.02)}
-    td{padding:14px 16px;border-bottom:1px solid rgba(0,245,255,0.06);font-size:0.85rem;vertical-align:middle}
-    tr:last-child td{border-bottom:none}
-    tr:hover td{background:rgba(0,245,255,0.02)}
-    .td-name{font-weight:600;color:var(--text)}
-    .td-enroll{font-family:var(--font-d);font-size:0.7rem;color:var(--cyan);letter-spacing:0.06em}
-    .td-muted{color:var(--muted);font-size:0.82rem}
-    .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-family:var(--font-d);font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase}
-    .song-link{color:var(--cyan);font-size:0.75rem;text-decoration:none;max-width:140px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
-    .song-link:hover{text-decoration:underline}
-    .action-btns{display:flex;gap:6px;flex-wrap:nowrap}
-    .status-select{padding:5px 10px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--font-d);font-size:0.6rem;cursor:pointer;outline:none}
-    .empty-state{padding:60px;text-align:center;color:var(--muted)}
-    .empty-state p{font-family:var(--font-d);letter-spacing:0.08em;font-size:0.8rem}
-    /* Alert */
-    .alert{padding:12px 20px;border-radius:8px;margin-bottom:20px;font-family:var(--font-d);font-size:0.72rem;letter-spacing:0.06em}
-    .alert-success{background:rgba(29,185,84,0.1);border:1px solid rgba(29,185,84,0.3);color:#1db954}
-    .overflow-x{overflow-x:auto}
-    @media(max-width:900px){.admin-header{flex-direction:column;align-items:flex-start}}
+    /* ── Login ── */
+    .login-wrap { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; position: relative; z-index: 1; }
+    .login-card { padding: 48px 40px; width: 100%; max-width: 420px; text-align: center; }
+    .login-logo { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--cyan); margin-bottom: 8px; }
+    .login-sub { font-size: 0.8rem; color: rgba(224, 242, 254, 0.5); margin-bottom: 32px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; }
+    .login-btn { width: 100%; }
+
+    /* ── Dashboard ── */
+    .admin-wrap { max-width: 1400px; margin: 0 auto; padding: 32px 24px; position: relative; z-index: 1; }
+    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+    .admin-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.05em; }
+    .admin-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    @media(max-width:640px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+    .stat-box { padding: 20px; text-align: center; position: relative; }
+    .stat-box-num { font-family: var(--font-display); font-size: 2rem; font-weight: 900; line-height: 1; }
+    .stat-box-label { font-size: 0.7rem; color: rgba(224, 242, 254, 0.5); margin-top: 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+    
+    .filter-bar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+    .search-input { flex: 1; min-width: 220px; }
+    .filter-select { background: rgba(0,245,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: var(--cyan); font-family: var(--font-display); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; outline: none; cursor: pointer; }
+    .filter-select option { background: #0a1428; color: white; }
+
+    .tc-head { padding: 16px 24px; border-bottom: 1px solid var(--border); font-family: var(--font-display); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); }
+    .td-name { font-weight: 600; color: var(--text); }
+    .td-enroll { font-family: var(--font-display); font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.06em; }
+    .td-muted { color: rgba(224, 242, 254, 0.55); font-size: 0.82rem; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-family: var(--font-display); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    
+    .status-select { padding: 5px 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: var(--font-display); font-size: 0.6rem; cursor: pointer; outline: none; }
+    .alert { padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.06em; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--green); }
+    
+    @media(max-width:900px) { .admin-header { flex-direction: column; align-items: flex-start; } }
   </style>
 </head>
 <body>
 
 <?php if (!$logged_in): ?>
 <!-- ── LOGIN SCREEN ───────────────────────────────── -->
-<div class="login-wrap">
-  <div class="login-card">
+  <div class="login-card premium-card">
     <div class="login-logo">3DINVENZA</div>
     <div class="login-sub">Admin Panel</div>
     <?php if (!empty($login_error)): ?>
       <p class="login-err">⚠ <?= htmlspecialchars($login_error) ?></p>
     <?php endif; ?>
     <form method="POST">
-      <input class="login-input" type="password" name="admin_pass" placeholder="Enter admin password" autofocus required />
-      <button class="login-btn" type="submit">ACCESS DASHBOARD →</button>
+      <input class="premium-input" type="password" name="admin_pass" placeholder="Enter admin password" autofocus style="margin-bottom:16px" required />
+      <button class="premium-btn premium-btn-primary login-btn" type="submit">ACCESS DASHBOARD →</button>
     </form>
   </div>
 </div>
@@ -214,65 +183,65 @@ $status_colors = [
   <!-- Header -->
   <div class="admin-header">
     <div>
-      <div class="admin-title">⬡ 3D Invenza — Student Orders</div>
-      <div style="color:var(--muted);font-size:0.8rem;margin-top:4px">Keychain Management Dashboard</div>
+      <div class="admin-title">⬡ Student Orders</div>
+      <div style="color:rgba(224, 242, 254, 0.4);font-size:0.7rem;margin-top:4px;font-family:var(--font-display);text-transform:uppercase;letter-spacing:0.1em">Keychain Management Dashboard</div>
     </div>
     <div class="admin-actions">
-      <a href="admin.php?export=csv" class="btn-sm btn-outline" style="border-color:rgba(29,185,84,.3);color:#1db954">↓ Export CSV</a>
-      <a href="status.php" class="btn-sm btn-outline" target="_blank">🔍 Status Lookup</a>
-      <a href="../admin/index.php" class="btn-sm btn-outline">Main Admin</a>
-      <a href="../index.html" class="btn-sm btn-outline">← Website</a>
-      <a href="admin.php?logout=1" class="btn-sm btn-danger">Logout</a>
+      <a href="admin.php?export=csv" class="premium-btn" style="border-color:rgba(52,211,153,0.3);color:var(--green)">↓ Export</a>
+      <a href="status.php" class="premium-btn" target="_blank">🔍 Lookup</a>
+      <a href="../admin/index.php" class="premium-btn">Main Admin</a>
+      <a href="../index.html" class="premium-btn">← Website</a>
+      <a href="admin.php?logout=1" class="premium-btn" style="border-color:rgba(239,68,68,0.3);color:#f87171">Logout</a>
     </div>
   </div>
 
-  <?php if (isset($_GET['updated'])): ?><div class="alert alert-success">✓ Status updated.</div><?php endif; ?>
-  <?php if (isset($_GET['deleted'])): ?><div class="alert alert-success">✓ Record deleted.</div><?php endif; ?>
-  <?php if (isset($_GET['added'])): ?><div class="alert alert-success">✓ Student added successfully.</div><?php endif; ?>
+  <?php if (isset($_GET['updated'])): ?><div class="alert">✓ Status updated.</div><?php endif; ?>
+  <?php if (isset($_GET['deleted'])): ?><div class="alert">✓ Record deleted.</div><?php endif; ?>
+  <?php if (isset($_GET['added'])): ?><div class="alert">✓ Student added successfully.</div><?php endif; ?>
 
   <!-- ── Manual Add Form ─────────────────────────────────────── -->
-  <div style="background:rgba(8,18,38,.88);border:1px solid rgba(0,245,255,.12);border-radius:14px;padding:22px 24px;margin-bottom:24px;backdrop-filter:blur(20px)">
-    <div style="font-family:var(--font-d);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px">➕ Add Student Manually</div>
-    <form method="POST" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;align-items:end">
-      <input name="name" placeholder="Full Name *" required class="search-input" style="min-width:unset"/>
-      <input name="enrollment" placeholder="Enrollment # *" required class="search-input" style="min-width:unset"/>
-      <input name="phone" placeholder="Phone *" required class="search-input" style="min-width:unset"/>
-      <input name="department" placeholder="Department" class="search-input" style="min-width:unset"/>
-      <input name="year" placeholder="Year" class="search-input" style="min-width:unset"/>
-      <input name="title" placeholder="Keychain Title" class="search-input" style="min-width:unset"/>
-      <input name="song_link" placeholder="Spotify Link" class="search-input" style="min-width:unset"/>
+  <div class="premium-card" style="padding:24px;margin-bottom:24px">
+    <div style="font-family:var(--font-display);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px">➕ Add Student Manually</div>
+    <form method="POST" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;align-items:end">
+      <input name="name" placeholder="Full Name *" required class="premium-input" style="min-width:unset"/>
+      <input name="enrollment" placeholder="Enrollment # *" required class="premium-input" style="min-width:unset"/>
+      <input name="phone" placeholder="Phone *" required class="premium-input" style="min-width:unset"/>
+      <input name="department" placeholder="Department" class="premium-input" style="min-width:unset"/>
+      <input name="year" placeholder="Year" class="premium-input" style="min-width:unset"/>
+      <input name="title" placeholder="Keychain Title" class="premium-input" style="min-width:unset"/>
+      <input name="song_link" placeholder="Spotify Link" class="premium-input" style="min-width:unset"/>
       <select name="status_new" class="filter-select">
         <option value="pending">Pending</option>
         <option value="processing">Processing</option>
         <option value="printed">Printed</option>
         <option value="delivered">Delivered</option>
       </select>
-      <button type="submit" name="add_student" class="btn-sm btn-outline" style="padding:10px 18px;border-color:rgba(0,245,255,.3);color:var(--cyan);background:rgba(0,245,255,.05)">Add Student →</button>
+      <button type="submit" name="add_student" class="premium-btn" style="padding:10px 18px;border-color:var(--cyan-accent);color:var(--cyan);background:var(--cyan-dim)">Add Student →</button>
     </form>
   </div>
 
   <!-- Stats -->
   <div class="stats-row">
-    <div class="stat-box">
+    <div class="stat-box premium-card">
       <div class="stat-box-num" style="color:var(--cyan)"><?= $total ?></div>
-      <div class="stat-box-label">Total Registrations</div>
+      <div class="stat-box-label">Registrations</div>
     </div>
-    <div class="stat-box">
+    <div class="stat-box premium-card">
       <div class="stat-box-num" style="color:var(--orange)"><?= $pending_count ?></div>
       <div class="stat-box-label">Pending</div>
     </div>
-    <div class="stat-box">
+    <div class="stat-box premium-card">
       <div class="stat-box-num" style="color:var(--violet)"><?= $printed_count ?></div>
       <div class="stat-box-label">Printed</div>
     </div>
-    <div class="stat-box">
-      <div class="stat-box-num" style="color:#1db954"><?= $total - $pending_count ?></div>
-      <div class="stat-box-label">In Progress / Done</div>
+    <div class="stat-box premium-card">
+      <div class="stat-box-num" style="color:var(--green)"><?= $total - $pending_count ?></div>
+      <div class="stat-box-label">Completed</div>
     </div>
   </div>
 
   <!-- Search / Filter -->
-  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
     <form method="POST" id="bulkForm" style="display:flex;gap:8px;align-items:center">
       <select name="bulk_status" class="filter-select">
         <option value="">Bulk: Update Selected…</option>
@@ -281,11 +250,11 @@ $status_colors = [
         <option value="printed">→ Printed</option>
         <option value="delivered">→ Delivered</option>
       </select>
-      <button type="submit" class="btn-sm btn-outline" onclick="return collectBulk()">Apply to Selected</button>
+      <button type="submit" class="premium-btn" onclick="return collectBulk()">Apply</button>
     </form>
   </div>
   <form method="GET" id="filterForm" class="filter-bar">
-    <input class="search-input" type="text" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search name, enrollment, dept…" />
+    <input class="search-input premium-input" type="text" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search name, enrollment, dept…" />
     <select class="filter-select" name="status_filter" onchange="this.form.submit()">
       <option value="">All Statuses</option>
       <option value="pending"    <?= $filter==='pending'    ?'selected':'' ?>>Pending</option>
@@ -293,17 +262,17 @@ $status_colors = [
       <option value="printed"    <?= $filter==='printed'    ?'selected':'' ?>>Printed</option>
       <option value="delivered"  <?= $filter==='delivered'  ?'selected':'' ?>>Delivered</option>
     </select>
-    <button class="btn-sm btn-outline" type="submit">Search</button>
+    <button class="premium-btn" type="submit">Search</button>
     <?php if ($search || $filter): ?>
-      <a href="admin.php" class="btn-sm btn-danger">Clear</a>
+      <a href="admin.php" class="premium-btn" style="border-color:rgba(239,68,68,0.3);color:#f87171">Clear</a>
     <?php endif; ?>
   </form>
 
   <!-- Table -->
-  <div class="table-wrap">
-    <div class="table-header">📋 Registered Students (<?= $result ? $result->num_rows : 0 ?> shown)</div>
+  <div class="table-wrap premium-card">
+    <div class="tc-head">📋 Registered Students (<?= $result ? $result->num_rows : 0 ?> shown)</div>
     <div class="overflow-x">
-    <table>
+    <table class="premium-table">
       <thead>
         <tr>
           <th>#</th>
@@ -354,14 +323,14 @@ $status_colors = [
               </td>
               <td>
                 <?php if ($row['stl_path']): ?>
-                  <a href="<?= htmlspecialchars($row['stl_path']) ?>" class="btn-sm btn-outline" style="font-size:0.55rem" download>↓ STL</a>
+                  <a href="<?= htmlspecialchars($row['stl_path']) ?>" class="premium-btn" style="font-size:0.55rem;padding:4px 8px" download>↓ STL</a>
                 <?php else: ?>
                   <span class="td-muted" style="font-size:0.75rem">Not generated</span>
                 <?php endif; ?>
               </td>
               <td class="td-muted" style="font-size:0.75rem"><?= date('d M Y', strtotime($row['created_at'])) ?></td>
               <td>
-                <div class="action-btns">
+                <div class="action-btns" style="display:flex;gap:6px">
                   <select class="status-select" onchange="location.href='admin.php?status='+this.value+'&id=<?= $row['id'] ?>'">
                     <option value="">Update…</option>
                     <option value="pending">Pending</option>
@@ -369,7 +338,7 @@ $status_colors = [
                     <option value="printed">Printed</option>
                     <option value="delivered">Delivered</option>
                   </select>
-                  <a href="admin.php?delete=<?= $row['id'] ?>" class="btn-sm btn-danger" onclick="return confirm('Delete this record?')">✕</a>
+                  <a href="admin.php?delete=<?= $row['id'] ?>" class="premium-btn" style="border-color:rgba(239,68,68,0.3);color:#f87171;padding:4px 8px" onclick="return confirm('Delete this record?')">✕</a>
                 </div>
               </td>
             </tr>

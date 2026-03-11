@@ -12,19 +12,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="../css/premium-php.css" />
     <style>
         /* ── Tokens ── */
         :root {
             --bg: #020812;
-            --card: rgba(10, 20, 40, 0.8);
-            --cyan: #00f5ff;
-            --cyan-d: rgba(0, 245, 255, 0.1);
-            --violet: #7c3aed;
-            --orange: #f97316;
-            --orange-d: rgba(249, 115, 22, 0.15);
-            --border: rgba(0, 245, 255, 0.12);
-            --text: #e0f2fe;
-            --muted: rgba(224, 242, 254, 0.55);
             --font-d: 'Orbitron', monospace;
             --font-b: 'Inter', sans-serif;
             --r: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -73,23 +65,6 @@
             z-index: 1;
         }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-d);
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 40px;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover {
-            color: var(--cyan);
-        }
-
         /* ── Hero ── */
         .kc-hero {
             text-align: center;
@@ -101,12 +76,12 @@
             align-items: center;
             gap: 8px;
             padding: 6px 16px;
-            background: rgba(29, 185, 84, 0.12);
-            border: 1px solid rgba(29, 185, 84, 0.3);
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.3);
             border-radius: 20px;
             font-size: 0.7rem;
-            font-family: var(--font-d);
-            color: #1db954;
+            font-family: var(--font-display);
+            color: var(--green);
             letter-spacing: 0.1em;
             text-transform: uppercase;
             margin-bottom: 24px;
@@ -115,77 +90,69 @@
         .kc-badge .dot {
             width: 6px;
             height: 6px;
-            background: #1db954;
+            background: var(--green);
             border-radius: 50%;
             animation: blink 1.5s infinite;
         }
 
         @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: 0.2
-            }
+            0%, 100% { opacity: 1 }
+            50% { opacity: 0.2 }
         }
 
         .kc-title {
-            font-family: var(--font-d);
-            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 16px;
+            letter-spacing: -0.02em;
         }
 
         .kc-title .grad {
-            background: linear-gradient(135deg, #1db954, var(--cyan), var(--violet));
+            background: linear-gradient(135deg, var(--green), var(--cyan), var(--violet));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .kc-desc {
-            color: var(--muted);
-            font-size: 1rem;
-            max-width: 500px;
+            color: rgba(224, 242, 254, 0.6);
+            font-size: 1.05rem;
+            max-width: 580px;
             margin: 0 auto 32px;
+            line-height: 1.6;
         }
 
         .kc-preview {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 16px;
             flex-wrap: wrap;
             margin-bottom: 12px;
         }
 
         .kc-chip {
             padding: 10px 20px;
-            background: var(--card);
+            background: rgba(2, 8, 18, 0.6);
             border: 1px solid var(--border);
             border-radius: 20px;
-            font-family: var(--font-d);
+            font-family: var(--font-display);
             font-size: 0.72rem;
             color: var(--cyan);
             letter-spacing: 0.08em;
+            backdrop-filter: blur(10px);
         }
 
         /* ── Form Card ── */
         .form-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
             overflow: hidden;
         }
 
         .form-header {
             padding: 24px 32px;
             border-bottom: 1px solid var(--border);
-            font-family: var(--font-d);
+            font-family: var(--font-display);
             font-size: 0.75rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -197,94 +164,36 @@
         }
 
         /* ── Grid ── */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-        }
-
-        @media(max-width:640px) {
-
-            .grid-2,
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .field-group {
-            margin-bottom: 0;
-        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+        @media(max-width:640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
 
         .field-label {
             display: block;
-            font-family: var(--font-d);
+            font-family: var(--font-display);
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--muted);
+            color: rgba(224, 242, 254, 0.5);
             margin-bottom: 8px;
         }
 
-        .field-label .req {
-            color: var(--orange);
-        }
-
-        .field-input {
-            width: 100%;
-            padding: 13px 16px;
-            background: rgba(0, 245, 255, 0.03);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-family: var(--font-b);
-            font-size: 0.95rem;
-            outline: none;
-            transition: var(--r);
-        }
-
-        .field-input:focus {
-            border-color: var(--cyan);
-            background: var(--cyan-d);
-            box-shadow: 0 0 16px rgba(0, 245, 255, 0.08);
-        }
-
-        .field-input::placeholder {
-            color: rgba(224, 242, 254, 0.25);
-        }
-
-        select.field-input {
-            cursor: pointer;
-        }
-
-        select.field-input option {
-            background: #0a1428;
-        }
+        .field-label .req { color: var(--orange); }
 
         .section-sep {
-            margin: 28px 0 20px;
+            margin: 40px 0 24px;
             display: flex;
             align-items: center;
             gap: 16px;
         }
 
-        .sep-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
+        .sep-line { flex: 1; height: 1px; background: var(--border); }
         .sep-label {
-            font-family: var(--font-d);
+            font-family: var(--font-display);
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: var(--muted);
+            color: rgba(224, 242, 254, 0.5);
             white-space: nowrap;
         }
 
@@ -293,40 +202,35 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 16px;
-            background: rgba(29, 185, 84, 0.05);
-            border: 1px solid rgba(29, 185, 84, 0.2);
-            border-radius: 10px;
+            padding: 20px;
+            background: rgba(52, 211, 153, 0.05);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            border-radius: 12px;
             margin-top: 16px;
         }
 
         .spotify-icon {
-            width: 40px;
-            height: 40px;
-            background: #1db954;
+            width: 44px;
+            height: 44px;
+            background: var(--green);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
         }
 
-        .spotify-preview p {
-            font-size: 0.82rem;
-            color: var(--muted);
-        }
-
-        .spotify-preview strong {
-            color: var(--text);
-        }
+        .spotify-preview p { font-size: 0.82rem; color: rgba(224, 242, 254, 0.5); }
+        .spotify-preview strong { color: var(--text); display: block; margin-bottom: 2px; }
 
         /* Terms checkbox */
         .terms-row {
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            margin: 24px 0;
+            margin: 32px 0;
         }
 
         .terms-row input[type=checkbox] {
@@ -339,111 +243,95 @@
         }
 
         .terms-row label {
-            font-size: 0.85rem;
-            color: var(--muted);
+            font-size: 0.88rem;
+            color: rgba(224, 242, 254, 0.6);
             cursor: pointer;
+            line-height: 1.5;
         }
 
-        .terms-row a {
-            color: var(--cyan);
-        }
+        .terms-row a { color: var(--cyan); text-decoration: underline; }
 
         /* Submit button */
         .submit-btn {
             width: 100%;
-            padding: 17px;
-            background: linear-gradient(135deg, #1db954, #15803d);
+            padding: 18px;
+            background: linear-gradient(135deg, var(--green), #15803d);
             color: #fff;
-            font-family: var(--font-d);
-            font-size: 0.82rem;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: var(--r);
-            box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
-            animation: greenPulse 2.5s ease-in-out infinite;
-        }
-
-        @keyframes greenPulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 15px rgba(29, 185, 84, 0.3);
-            }
-
-            50% {
-                box-shadow: 0 0 35px rgba(29, 185, 84, 0.5);
-            }
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.2);
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.3);
+            filter: brightness(1.1);
         }
 
         /* Success banner */
         .success-banner {
             display: none;
-            padding: 24px 32px;
-            background: rgba(29, 185, 84, 0.1);
-            border: 1px solid rgba(29, 185, 84, 0.3);
-            border-radius: 10px;
-            margin-bottom: 24px;
+            padding: 32px;
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 16px;
+            margin-bottom: 32px;
             text-align: center;
         }
 
-        .success-banner.show {
-            display: block;
-        }
+        .success-banner.show { display: block; animation: slideDown 0.5s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
         .success-banner h3 {
-            font-family: var(--font-d);
-            color: #1db954;
-            font-size: 1rem;
-            margin-bottom: 8px;
+            font-family: var(--font-display);
+            color: var(--green);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        .success-banner p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
+        .success-banner p { color: rgba(224, 242, 254, 0.7); font-size: 0.95rem; }
 
         /* Back nav */
         .kc-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 32px;
-            background: rgba(2, 8, 18, 0.95);
+            padding: 20px 40px;
+            background: rgba(2, 8, 18, 0.8);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
             backdrop-filter: blur(20px);
         }
 
         .nav-logo-sm {
-            font-family: var(--font-d);
-            font-size: 1rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--cyan);
             letter-spacing: 0.05em;
         }
 
-        .nav-logo-sm span {
-            color: var(--text);
-        }
+        .nav-logo-sm span { color: var(--text); }
+        .nav-back { font-family:var(--font-display); font-size:0.65rem; letter-spacing:0.1em; color:rgba(224, 242, 254, 0.5); text-transform:uppercase; transition: 0.2s; }
+        .nav-back:hover { color: var(--cyan); }
     </style>
 </head>
 
 <body>
     <nav class="kc-nav">
         <a href="../index.html" class="nav-logo-sm"><span>3D</span>INVENZA</a>
-        <a href="../index.html"
-            style="font-family:var(--font-d);font-size:0.65rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;">←
-            Back to Platform</a>
+        <a href="../index.html" class="nav-back">← Back to Platform</a>
     </nav>
 
     <div class="page-wrap">
@@ -458,8 +346,7 @@
                 <span class="kc-chip">→</span>
                 <span class="kc-chip">🔑 3D Printed Keychain</span>
             </div>
-            <p style="font-size:0.8rem;color:var(--muted);font-family:var(--font-d);letter-spacing:0.08em">LIMITED SLOTS
-                AVAILABLE — REGISTER NOW</p>
+            <p style="font-size:0.75rem;color:rgba(224, 242, 254, 0.4);font-family:var(--font-display);letter-spacing:0.12em">LIMITED SLOTS AVAILABLE — REGISTER NOW</p>
         </div>
 
         <!-- Success Banner -->
@@ -470,7 +357,7 @@
         </div>
 
         <!-- Form -->
-        <div class="form-card">
+        <div class="form-card premium-card">
             <div class="form-header">📋 Student Registration Form</div>
             <div class="form-body">
                 <form id="keychainForm" action="submit.php" method="POST">
@@ -482,24 +369,21 @@
                         <div class="sep-line"></div>
                     </div>
 
-                    <div class="grid-2" style="margin-bottom:20px">
+                    <div class="grid-2" style="margin-bottom:24px">
                         <div class="field-group">
                             <label class="field-label" for="kName">Full Name <span class="req">*</span></label>
-                            <input class="field-input" type="text" id="kName" name="name" placeholder="Your full name"
-                                required />
+                            <input class="premium-input" type="text" id="kName" name="name" placeholder="Your full name" required />
                         </div>
                         <div class="field-group">
-                            <label class="field-label" for="kEnroll">Enrollment Number <span
-                                    class="req">*</span></label>
-                            <input class="field-input" type="text" id="kEnroll" name="enrollment"
-                                placeholder="e.g. 22CS0001" required />
+                            <label class="field-label" for="kEnroll">Enrollment Number <span class="req">*</span></label>
+                            <input class="premium-input" type="text" id="kEnroll" name="enrollment" placeholder="e.g. 22CS0001" required />
                         </div>
                     </div>
 
-                    <div class="grid-3" style="margin-bottom:20px">
+                    <div class="grid-3" style="margin-bottom:24px">
                         <div class="field-group">
                             <label class="field-label" for="kGender">Gender</label>
-                            <select class="field-input" id="kGender" name="gender">
+                            <select class="premium-input" id="kGender" name="gender">
                                 <option value="">Select…</option>
                                 <option>Male</option>
                                 <option>Female</option>
@@ -509,25 +393,22 @@
                         </div>
                         <div class="field-group">
                             <label class="field-label" for="kPhone">Phone <span class="req">*</span></label>
-                            <input class="field-input" type="tel" id="kPhone" name="phone" placeholder="+91 XXXXX XXXXX"
-                                required />
+                            <input class="premium-input" type="tel" id="kPhone" name="phone" placeholder="+91 XXXXX XXXXX" required />
                         </div>
                         <div class="field-group">
                             <label class="field-label" for="kEmail">Email</label>
-                            <input class="field-input" type="email" id="kEmail" name="email"
-                                placeholder="you@email.com" />
+                            <input class="premium-input" type="email" id="kEmail" name="email" placeholder="you@email.com" />
                         </div>
                     </div>
 
-                    <div class="grid-2" style="margin-bottom:20px">
+                    <div class="grid-2" style="margin-bottom:24px">
                         <div class="field-group">
                             <label class="field-label" for="kCity">City</label>
-                            <input class="field-input" type="text" id="kCity" name="city" placeholder="Your city" />
+                            <input class="premium-input" type="text" id="kCity" name="city" placeholder="Your city" />
                         </div>
                         <div class="field-group">
                             <label class="field-label" for="kInsta">Instagram Handle</label>
-                            <input class="field-input" type="text" id="kInsta" name="instagram"
-                                placeholder="@yourusername" />
+                            <input class="premium-input" type="text" id="kInsta" name="instagram" placeholder="@yourusername" />
                         </div>
                     </div>
 
@@ -538,10 +419,10 @@
                         <div class="sep-line"></div>
                     </div>
 
-                    <div class="grid-3" style="margin-bottom:20px">
+                    <div class="grid-3" style="margin-bottom:24px">
                         <div class="field-group">
                             <label class="field-label" for="kDept">Department <span class="req">*</span></label>
-                            <select class="field-input" id="kDept" name="department" required>
+                            <select class="premium-input" id="kDept" name="department" required>
                                 <option value="">Select…</option>
                                 <option>Computer Science</option>
                                 <option>Mechanical Engineering</option>
@@ -554,7 +435,7 @@
                         </div>
                         <div class="field-group">
                             <label class="field-label" for="kYear">Academic Year <span class="req">*</span></label>
-                            <select class="field-input" id="kYear" name="year" required>
+                            <select class="premium-input" id="kYear" name="year" required>
                                 <option value="">Select…</option>
                                 <option>1st Year</option>
                                 <option>2nd Year</option>
@@ -564,8 +445,7 @@
                         </div>
                         <div class="field-group">
                             <label class="field-label" for="kBatch">Batch</label>
-                            <input class="field-input" type="text" id="kBatch" name="batch"
-                                placeholder="e.g. 2022–2026" />
+                            <input class="premium-input" type="text" id="kBatch" name="batch" placeholder="e.g. 2022–2026" />
                         </div>
                     </div>
 
@@ -578,8 +458,7 @@
 
                     <div class="field-group" style="margin-bottom:16px">
                         <label class="field-label" for="kSong">Spotify Song Link <span class="req">*</span></label>
-                        <input class="field-input" type="url" id="kSong" name="song_link"
-                            placeholder="https://open.spotify.com/track/..." required />
+                        <input class="premium-input" type="url" id="kSong" name="song_link" placeholder="https://open.spotify.com/track/..." required />
                     </div>
 
                     <div class="spotify-preview" id="spotifyPreview" style="display:none">
@@ -590,14 +469,10 @@
                         </div>
                     </div>
 
-                    <div class="field-group" style="margin-top:20px">
-                        <label class="field-label" for="kTitle">Title to Engrave on Keychain <span
-                                class="req">*</span></label>
-                        <input class="field-input" type="text" id="kTitle" name="title"
-                            placeholder="e.g. Namya 💙 or your name" maxlength="20" required />
-                        <p
-                            style="font-size:0.75rem;color:var(--muted);margin-top:6px;font-family:var(--font-d);letter-spacing:0.05em">
-                            Max 20 characters — this will be engraved on the keychain</p>
+                    <div class="field-group" style="margin-top:24px">
+                        <label class="field-label" for="kTitle">Title to Engrave on Keychain <span class="req">*</span></label>
+                        <input class="premium-input" type="text" id="kTitle" name="title" placeholder="e.g. Namya 💙 or your name" maxlength="20" required />
+                        <p style="font-size:0.75rem;color:rgba(224, 242, 254, 0.4);margin-top:8px;font-family:var(--font-display);letter-spacing:0.05em">Max 20 characters — this will be engraved on the keychain</p>
                     </div>
 
                     <!-- Terms -->

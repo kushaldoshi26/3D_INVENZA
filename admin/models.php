@@ -183,11 +183,11 @@ function fmtSize($b) { if ($b > 1048576) return round($b/1048576,1).' MB'; retur
 
     <div class="two-col">
       <!-- Upload panel -->
-      <div class="panel">
+      <div class="panel premium-card">
         <div class="p-head"><div class="p-title">Upload New Model</div></div>
         <form class="upload-form" method="POST" enctype="multipart/form-data">
           <label class="field-label" for="mname">Model Display Name</label>
-          <input class="text-input" type="text" id="mname" name="model_name" placeholder="e.g. Iron Man Mark V" required />
+          <input class="text-input premium-input" type="text" id="mname" name="model_name" placeholder="e.g. Iron Man Mark V" required />
           <label class="field-label">Model File</label>
           <div class="drop-zone" id="dropZone">
             <input type="file" name="model" id="modelFile" accept=".stl,.obj,.glb,.gltf,.3mf" required />
@@ -196,37 +196,37 @@ function fmtSize($b) { if ($b > 1048576) return round($b/1048576,1).' MB'; retur
             <div class="drop-sub">STL · OBJ · GLB · GLTF · 3MF · Max 50 MB</div>
             <div class="file-chosen" id="fileChosen"></div>
           </div>
-          <button class="btn-upload" type="submit">Upload Model →</button>
+          <button class="btn-upload premium-btn premium-btn-primary" type="submit">Upload Model →</button>
         </form>
       </div>
 
       <!-- Info panel -->
-      <div class="panel">
+      <div class="panel premium-card">
         <div class="p-head"><div class="p-title">How It Works</div></div>
         <div style="padding:24px;display:flex;flex-direction:column;gap:18px">
           <?php $steps = [['01','Upload a 3D model file (STL, OBJ, or GLB).','var(--cyan)'],['02','Click "Set Active" to display it in the hero.','var(--violet)'],['03','The hero automatically loads your model on next page visit.','var(--orange)'],]; foreach($steps as [$n,$t,$c]): ?>
           <div style="display:flex;align-items:flex-start;gap:14px">
-            <div style="width:32px;height:32px;border-radius:50%;background:<?=$c?>22;border:1px solid <?=$c?>44;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:0.65rem;color:<?=$c?>;flex-shrink:0"><?=$n?></div>
-            <div style="font-size:0.85rem;color:var(--muted);padding-top:6px;line-height:1.5"><?=$t?></div>
+            <div style="width:32px;height:32px;border-radius:50%;background:<?=$c?>22;border:1px solid <?=$c?>44;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.65rem;color:<?=$c?>;flex-shrink:0"><?=$n?></div>
+            <div style="font-size:0.85rem;color:rgba(224, 242, 254, 0.5);padding-top:6px;line-height:1.5"><?=$t?></div>
           </div>
           <?php endforeach; ?>
-          <div style="margin-top:10px;padding:14px;background:var(--cyan-d);border:1px solid rgba(0,245,255,0.15);border-radius:10px">
-            <div style="font-family:var(--font-d);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px">Preset Models</div>
-            <div style="font-size:0.82rem;color:var(--muted)">Iron Man · Arc Reactor · JARVIS AI · 3D Printer · Hex Core — always available even without uploads.</div>
+          <div style="margin-top:10px;padding:14px;background:var(--cyan-dim);border:1px solid rgba(0,245,255,0.15);border-radius:10px">
+            <div style="font-family:var(--font-display);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px">Preset Models</div>
+            <div style="font-size:0.82rem;color:rgba(224, 242, 254, 0.5)">Iron Man · Arc Reactor · JARVIS AI · 3D Printer · Hex Core — always available even without uploads.</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Models list -->
-    <div class="panel">
+    <div class="panel premium-card">
       <div class="p-head">
         <div class="p-title">Uploaded Models</div>
-        <span style="font-family:var(--font-d);font-size:0.6rem;color:var(--muted)"><?= $models->num_rows ?? 0 ?> files</span>
+        <span style="font-family:var(--font-display);font-size:0.6rem;color:rgba(224, 242, 254, 0.5)"><?= $models->num_rows ?? 0 ?> files</span>
       </div>
       <?php if ($models && $models->num_rows > 0): ?>
-      <div style="overflow-x:auto">
-        <table>
+      <div class="overflow-x">
+        <table class="premium-table">
           <thead><tr><th>#</th><th>Name</th><th>File</th><th>Format</th><th>Size</th><th>Status</th><th>Uploaded</th><th>Actions</th></tr></thead>
           <tbody>
             <?php while($m = $models->fetch_assoc()): ?>
@@ -236,7 +236,7 @@ function fmtSize($b) { if ($b > 1048576) return round($b/1048576,1).' MB'; retur
               <td class="td-muted"><?= htmlspecialchars($m['filename']) ?></td>
               <td><span class="badge ext-badge"><?= strtoupper($m['ext']) ?></span></td>
               <td class="td-muted"><?= fmtSize($m['size']) ?></td>
-              <td><?php if($m['active']): ?><span class="badge active-badge">Active</span><?php else: ?><span class="td-muted" style="font-family:var(--font-d);font-size:0.6rem">—</span><?php endif; ?></td>
+              <td><?php if($m['active']): ?><span class="badge active-badge">Active</span><?php else: ?><span class="td-muted" style="font-family:var(--font-display);font-size:0.6rem">—</span><?php endif; ?></td>
               <td class="td-muted"><?= date('d M Y', strtotime($m['uploaded_at'])) ?></td>
               <td>
                 <?php if (!$m['active']): ?>
@@ -249,7 +249,7 @@ function fmtSize($b) { if ($b > 1048576) return round($b/1048576,1).' MB'; retur
           </tbody>
         </table>
       </div>
-      <?php else: ?><div class="empty">No models uploaded yet. Upload your first 3D model above.</div><?php endif; ?>
+      <?php else: ?><div style="padding:40px;text-align:center;color:rgba(224, 242, 254, 0.5);font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.08em">No models uploaded yet. Upload your first 3D model above.</div><?php endif; ?>
     </div>
   </div>
 </main>

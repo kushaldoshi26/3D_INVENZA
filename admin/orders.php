@@ -96,74 +96,40 @@ $pColors = ['pending'=>'#f97316','paid'=>'#1db954','failed'=>'#ef4444'];
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Orders — Admin | 3D Invenza</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/premium-php.css" />
   <style>
-    :root{--bg:#020812;--card:rgba(8,18,38,0.88);--cyan:#00f5ff;--cd:rgba(0,245,255,0.08);--violet:#7c3aed;--orange:#f97316;--border:rgba(0,245,255,0.10);--text:#e0f2fe;--muted:rgba(224,242,254,0.50);--fd:'Orbitron',monospace;--fb:'Inter',sans-serif}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100vh;display:flex}
-    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
-    a{color:inherit;text-decoration:none}
-    /* Sidebar */
-    .sidebar{width:260px;flex-shrink:0;background:rgba(5,12,28,.95);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:10;backdrop-filter:blur(20px)}
-    .sb-logo{padding:28px 24px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-    .sb-logo-icon{font-size:1.5rem;color:var(--cyan);filter:drop-shadow(0 0 6px var(--cyan))}
-    .sb-logo-text{font-family:var(--fd);font-size:1rem;font-weight:700;letter-spacing:.05em}
-    .sb-logo-text span{color:var(--cyan)}
-    .sb-label{padding:20px 24px 8px;font-family:var(--fd);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-    .sb-nav{display:flex;flex-direction:column;gap:2px;padding:0 12px}
-    .sb-link{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:8px;color:var(--muted);font-family:var(--fd);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;transition:.3s;border:1px solid transparent}
-    .sb-link svg{width:16px;height:16px;stroke:currentColor;flex-shrink:0}
-    .sb-link:hover,.sb-link.active{background:var(--cd);color:var(--cyan);border-color:rgba(0,245,255,.12)}
-    .sb-footer{margin-top:auto;padding:20px;border-top:1px solid var(--border)}
-    .sb-avatar{width:36px;height:36px;border-radius:50%;background:var(--cd);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:.75rem;color:var(--cyan);font-weight:700}
-    .sb-user{display:flex;align-items:center;gap:12px}
-    .sb-uname{font-family:var(--fd);font-size:.70rem;font-weight:600}
-    .sb-urole{font-size:.72rem;color:var(--orange)}
-    .sb-logout{margin-top:10px;width:100%;padding:9px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:8px;color:#f87171;font-family:var(--fd);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.3s;text-align:center;display:block}
-    /* Main */
-    .main{flex:1;margin-left:260px;z-index:1;position:relative}
-    .topbar{padding:20px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(2,8,18,.8);backdrop-filter:blur(20px);position:sticky;top:0;z-index:5}
-    .tb-title{font-family:var(--fd);font-size:.85rem;font-weight:700;color:var(--cyan);letter-spacing:.06em}
-    .tb-sub{font-family:var(--fd);font-size:.60rem;color:var(--muted);letter-spacing:.10em;text-transform:uppercase;margin-top:4px}
-    .tb-actions{display:flex;gap:10px;align-items:center}
-    .content{padding:32px}
-    /* Buttons */
-    .btn-sm{padding:8px 16px;border-radius:8px;font-family:var(--fd);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:transparent;color:var(--muted)}
-    .btn-sm:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cd)}
-    .btn-green{border-color:rgba(29,185,84,.3);color:#1db954}
-    .btn-green:hover{border-color:#1db954;background:rgba(29,185,84,.07)}
-    /* Stats */
-    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:28px}
-    .stat-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;position:relative;overflow:hidden;backdrop-filter:blur(20px);transition:.3s}
-    .stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--ac,var(--cyan)),transparent);opacity:.6}
-    .stat-box:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
-    .stat-num{font-family:var(--fd);font-size:2.2rem;font-weight:900;line-height:1;margin-bottom:6px}
-    .stat-lbl{font-family:var(--fd);font-size:.60rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
-    /* Alert */
-    .alert{padding:12px 18px;border-radius:8px;margin-bottom:20px;font-family:var(--fd);font-size:.68rem;letter-spacing:.06em}
-    .alert-ok{background:rgba(29,185,84,.1);border:1px solid rgba(29,185,84,.3);color:#1db954}
-    /* Filter */
-    .filter-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
-    .search-input{flex:1;min-width:200px;padding:10px 14px;background:rgba(0,245,255,.03);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--fb);font-size:.9rem;outline:none;transition:.3s}
-    .search-input:focus{border-color:var(--cyan)}
-    .filter-select{padding:10px 12px;background:rgba(0,245,255,.03);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--fd);font-size:.65rem;outline:none;cursor:pointer}
-    .filter-select option{background:#0a1428}
-    /* Table */
-    .table-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;backdrop-filter:blur(20px)}
-    .tc-head{padding:16px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-    .tc-title{font-family:var(--fd);font-size:.70rem;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--cyan)}
-    table{width:100%;border-collapse:collapse}
-    th{padding:11px 16px;font-family:var(--fd);font-size:.57rem;text-transform:uppercase;letter-spacing:.10em;color:var(--muted);text-align:left;background:rgba(0,245,255,.02);border-bottom:1px solid var(--border);white-space:nowrap}
-    td{padding:13px 16px;border-bottom:1px solid rgba(0,245,255,.05);font-size:.84rem;vertical-align:middle}
-    tr:last-child td{border-bottom:none}
-    tr:hover td{background:rgba(0,245,255,.015)}
-    .td-m{color:var(--muted);font-size:.78rem}
-    .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-family:var(--fd);font-size:.57rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-    .act-btn{padding:4px 8px;border-radius:6px;font-family:var(--fd);font-size:.56rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid;transition:.2s;text-decoration:none;display:inline-block;margin-right:4px}
-    .act-del{border-color:rgba(239,68,68,.3);color:#f87171}
-    .act-del:hover{background:rgba(239,68,68,.1)}
-    .status-sel{padding:4px 8px;background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--fd);font-size:.57rem;cursor:pointer;outline:none}
-    .empty-state{padding:48px;text-align:center;color:var(--muted);font-family:var(--fd);font-size:.70rem;letter-spacing:.08em}
-    @media(max-width:900px){.stats-row{grid-template-columns:1fr 1fr}}
+    .main { flex: 1; margin-left: 260px; min-height: 100vh; position: relative; z-index: 1; }
+    .topbar { padding: 20px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: rgba(2,8,18,0.8); backdrop-filter: blur(20px); position: sticky; top:0; z-index: 5; }
+    .sidebar { width: 260px; background: var(--sidebar); border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; backdrop-filter: blur(20px); display: flex; flex-direction: column; }
+    
+    .content { padding: 32px; position: relative; z-index: 1; }
+    .tb-sub { font-family: var(--font-display); font-size: 0.60rem; color: rgba(224, 242, 254, 0.5); letter-spacing: 0.10em; text-transform: uppercase; margin-top: 4px; }
+    .tb-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.06em; }
+    
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 28px; }
+    .stat-box { padding: 22px; position: relative; overflow: hidden; }
+    .stat-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--ac, var(--cyan)), transparent); opacity: 0.6; }
+    .stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+    .stat-lbl { font-family: var(--font-display); font-size: 0.60rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(224, 242, 254, 0.5); }
+    
+    .alert { padding: 12px 18px; border-radius: 8px; margin-bottom: 20px; font-family: var(--font-display); font-size: 0.68rem; letter-spacing: 0.06em; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--green); }
+    
+    .filter-bar { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 240px; }
+    .filter-select { background: rgba(0,245,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--cyan); font-family: var(--font-display); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; outline: none; cursor: pointer; }
+    .filter-select option { background: #0a1428; color: white; }
+
+    .table-card { overflow: hidden; }
+    .tc-head { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .tc-title { font-family: var(--font-display); font-size: 0.70rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: var(--cyan); }
+    .td-m { color: rgba(224, 242, 254, 0.5); font-size:0.8rem; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-family: var(--font-display); font-size: 0.57rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    
+    .status-sel { padding: 4px 8px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: var(--font-display); font-size: 0.57rem; cursor: pointer; outline: none; }
+    .act-btn { padding: 4px 8px; border-radius: 6px; font-family: var(--font-display); font-size: 0.56rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: 1px solid; transition: .2s; }
+    .act-del { border-color: rgba(239, 68, 68, 0.3); color: #f87171; }
+    
+    @media(max-width:900px) { .stats-row { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
@@ -222,8 +188,8 @@ $pColors = ['pending'=>'#f97316','paid'=>'#1db954','failed'=>'#ef4444'];
       <div class="tb-sub">Admin · Orders · <?= $total ?> total</div>
     </div>
     <div class="tb-actions">
-      <a href="orders.php?export=csv" class="btn-sm btn-green">↓ Export CSV</a>
-      <a href="index.php" class="btn-sm">← Dashboard</a>
+      <a href="orders.php?export=csv" class="premium-btn" style="border-color:rgba(52,211,153,0.3);color:var(--green)">↓ Export CSV</a>
+      <a href="index.php" class="premium-btn">← Dashboard</a>
     </div>
   </div>
 
@@ -234,19 +200,19 @@ $pColors = ['pending'=>'#f97316','paid'=>'#1db954','failed'=>'#ef4444'];
 
     <!-- Stats -->
     <div class="stats-row">
-      <div class="stat-box" style="--ac:var(--cyan)">
+      <div class="stat-box premium-card" style="--ac:var(--cyan)">
         <div class="stat-num" style="color:var(--cyan)"><?= $total ?></div>
         <div class="stat-lbl">Total Orders</div>
       </div>
-      <div class="stat-box" style="--ac:var(--orange)">
+      <div class="stat-box premium-card" style="--ac:var(--orange)">
         <div class="stat-num" style="color:var(--orange)"><?= $pending ?></div>
         <div class="stat-lbl">Pending</div>
       </div>
-      <div class="stat-box" style="--ac:#1db954">
-        <div class="stat-num" style="color:#1db954">₹<?= number_format($revenue, 0) ?></div>
+      <div class="stat-box premium-card" style="--ac:var(--green)">
+        <div class="stat-num" style="color:var(--green)">₹<?= number_format($revenue, 0) ?></div>
         <div class="stat-lbl">Revenue (Paid)</div>
       </div>
-      <div class="stat-box" style="--ac:var(--violet)">
+      <div class="stat-box premium-card" style="--ac:var(--violet)">
         <div class="stat-num" style="color:var(--violet)"><?= $total - $pending ?></div>
         <div class="stat-lbl">In Progress / Done</div>
       </div>
@@ -254,7 +220,7 @@ $pColors = ['pending'=>'#f97316','paid'=>'#1db954','failed'=>'#ef4444'];
 
     <!-- Filter -->
     <form method="GET" class="filter-bar">
-      <input class="search-input" type="text" name="q" value="<?= htmlspecialchars($q) ?>" placeholder="Search order ref, model, user…"/>
+      <input class="search-input premium-input" type="text" name="q" value="<?= htmlspecialchars($q) ?>" placeholder="Search order ref, model, user…"/>
       <select class="filter-select" name="status_f" onchange="this.form.submit()">
         <option value="">All Statuses</option>
         <?php foreach(['pending','processing','printing','printed','shipped','delivered','cancelled'] as $s): ?>
@@ -267,18 +233,18 @@ $pColors = ['pending'=>'#f97316','paid'=>'#1db954','failed'=>'#ef4444'];
         <option value="paid"     <?= $pf==='paid'?'selected':'' ?>>Paid</option>
         <option value="failed"   <?= $pf==='failed'?'selected':'' ?>>Failed</option>
       </select>
-      <button class="btn-sm" type="submit">Search</button>
-      <?php if ($q||$sf||$pf): ?><a href="orders.php" class="btn-sm" style="border-color:rgba(239,68,68,.3);color:#f87171">Clear</a><?php endif; ?>
+      <button class="premium-btn" type="submit">Search</button>
+      <?php if ($q||$sf||$pf): ?><a href="orders.php" class="premium-btn" style="border-color:rgba(239,68,68,.3);color:#f87171">Clear</a><?php endif; ?>
     </form>
 
     <!-- Table -->
-    <div class="table-card">
+    <div class="table-card premium-card">
       <div class="tc-head">
         <div class="tc-title">All Orders</div>
-        <span style="font-family:var(--fd);font-size:.60rem;color:var(--muted)"><?= $orders ? $orders->num_rows : 0 ?> shown</span>
+        <span style="font-family:var(--font-display);font-size:.60rem;color:rgba(224, 242, 254, 0.5)"><?= $orders ? $orders->num_rows : 0 ?> shown</span>
       </div>
-      <div style="overflow-x:auto">
-        <table>
+      <div class="overflow-x">
+        <table class="premium-table">
           <thead>
             <tr>
               <th>#</th><th>Order Ref</th><th>Customer</th><th>Model</th>
