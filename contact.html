@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — 3D Invenza</title>
+  <meta name="description" content="Get in touch with 3D Invenza. Send us a message or connect via our social channels." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/holographic.css" />
+  <link rel="stylesheet" href="css/jarvis.css" />
+</head>
+<body>
+
+<div id="dataStream"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⬡</div>
+      <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"     class="nav-link">Home</a></li>
+      <li><a href="features.html"  class="nav-link">Features</a></li>
+      <li><a href="products.html"  class="nav-link">Products</a></li>
+      <li><a href="upload.html"    class="nav-link">Upload</a></li>
+      <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="contact.html"   class="nav-link active">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="auth/login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="section" style="padding-top:130px;padding-bottom:48px;background:var(--bg-2);border-bottom:1px solid var(--border-2);">
+  <div class="container">
+    <div class="orb orb-1"></div>
+    <span class="section-tag">Get In Touch</span>
+    <h1 class="display-2">Contact <span class="gradient-text">Us</span></h1>
+    <p style="color:var(--text-2);font-size:1.05rem;max-width:480px;line-height:1.75;margin-top:16px;">
+      Have a question about your print, want to discuss a project, or need technical support? We're here to help.
+    </p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="section bg-grid">
+  <div class="container">
+    <div class="grid-2" style="gap:48px;align-items:start;">
+
+      <!-- Contact Info -->
+      <div>
+        <h2 style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:28px;">
+          ◈ Contact Info
+        </h2>
+
+        <div class="card" style="margin-bottom:24px;">
+          <div class="contact-info-item">
+            <div class="contact-icon">✉</div>
+            <div>
+              <h4>Email</h4>
+              <p>kushaldoshi26@gmail.com</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Phone / WhatsApp</h4>
+              <p>+91 — Available on request</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">💳</div>
+            <div>
+              <h4>UPI Payment</h4>
+              <p>kushaldoshi26@oksbi</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <h4>Response Time</h4>
+              <p>Within 24 hours on business days</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <h2 style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:20px;">
+          ◆ Connect
+        </h2>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="#" class="btn btn-ghost btn-sm">𝕏 Twitter</a>
+          <a href="#" class="btn btn-ghost btn-sm">⌥ GitHub</a>
+          <a href="#" class="btn btn-ghost btn-sm">in LinkedIn</a>
+          <a href="#" class="btn btn-ghost btn-sm">📸 Instagram</a>
+        </div>
+
+        <!-- Status card -->
+        <div class="card" style="margin-top:24px;border-color:rgba(34,197,94,0.2);">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:10px;height:10px;background:var(--green);border-radius:50%;box-shadow:0 0 10px rgba(34,197,94,0.8);flex-shrink:0;"></span>
+            <div>
+              <div style="font-family:var(--font-display);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;color:var(--text-1);">ALL SYSTEMS OPERATIONAL</div>
+              <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);margin-top:4px;letter-spacing:0.1em;">Printers online · Queue: 1 job</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contact Form -->
+      <div>
+        <h2 style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:28px;">
+          ▶ Send Message
+        </h2>
+        <div class="card">
+          <form id="contactForm" action="backend/contact.php" method="POST" onsubmit="return validateContact()">
+            <div class="form-group">
+              <label class="form-label" for="cName">Full Name</label>
+              <input type="text" id="cName" name="name" class="form-input" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cEmail">Email Address</label>
+              <input type="email" id="cEmail" name="email" class="form-input" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cSubject">Subject</label>
+              <input type="text" id="cSubject" name="subject" class="form-input" placeholder="What's this about?" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cMsg">Message</label>
+              <textarea id="cMsg" name="message" class="form-textarea" placeholder="Describe your project, ask a question, or leave feedback…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-glow" style="width:100%;justify-content:center;">
+              Send Message ✉
+            </button>
+            <div id="formStatus" style="display:none;margin-top:16px;text-align:center;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--green);">
+              ✓ MESSAGE SENT SUCCESSFULLY
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-icon">⬡</div><span class="logo-text">3D<span class="accent">INVENZA</span></span></a><p>Next-generation holographic 3D printing platform.</p></div>
+      <div><div class="footer-col-title">Platform</div><ul class="footer-links"><li><a href="upload.html">Upload</a></li><li><a href="features.html">Features</a></li><li><a href="products.html">Products</a></li></ul></div>
+      <div><div class="footer-col-title">Account</div><ul class="footer-links"><li><a href="auth/login.html">Sign In</a></li><li><a href="auth/register.html">Register</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-col-title">Status</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3);"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;"></span>All systems operational</div><div style="color:var(--cyan);" id="sysClock">00:00:00</div></div></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 3D Invenza. All rights reserved.</p><div class="footer-social"><a class="social-btn" href="#">𝕏</a><a class="social-btn" href="#">⌥</a><a class="social-btn" href="#">in</a></div></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/jarvis.js"></script>
+<script>
+  function validateContact() {
+    var n = document.getElementById('cName').value.trim();
+    var e = document.getElementById('cEmail').value.trim();
+    var m = document.getElementById('cMsg').value.trim();
+    if (!n || !e || !m) { alert('Please fill all required fields.'); return false; }
+    if (!/\S+@\S+\.\S+/.test(e)) { alert('Please enter a valid email address.'); return false; }
+    document.getElementById('formStatus').style.display = 'block';
+    return true;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Invenza — Industrial 3D Printing Platform</title>
+  <meta name="description" content="Upload your 3D model, preview it holographically, choose your material, and get precision-printed with industrial-grade technology." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/holographic.css" />
+  <link rel="stylesheet" href="css/jarvis.css" />
+</head>
+<body>
+
+<!-- JARVIS Boot -->
+<div id="jarvisBootOverlay">
+  <div class="boot-logo">⬡ 3D INVENZA</div>
+  <div class="boot-bar-wrap"><div class="boot-bar"></div></div>
+  <div class="boot-status">INITIALIZING HOLOGRAPHIC ENGINE…</div>
+</div>
+<div id="dataStream"></div>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Particle Canvas -->
+<canvas id="particleCanvas" style="position:fixed;inset:0;pointer-events:none;z-index:0;"></canvas>
+
+<!-- ─── NAVBAR ───────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⬡</div>
+      <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"     class="nav-link active">Home</a></li>
+      <li><a href="features.html"  class="nav-link">Features</a></li>
+      <li><a href="products.html"  class="nav-link">Products</a></li>
+      <li><a href="upload.html"    class="nav-link">Upload</a></li>
+      <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="contact.html"   class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="auth/login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Holographic grid bg -->
+  <div class="holo-grid-bg"></div>
+  <div class="holo-floor-grid"></div>
+
+  <!-- Content -->
+  <div class="hero-content" id="heroContent">
+    <div class="hero-eyebrow">NEXT-GEN FABRICATION // v4.2.1</div>
+
+    <h1 class="hero-title">
+      Print Your Vision<br>
+      <span class="gradient-text">In 3D Reality</span>
+    </h1>
+
+    <p class="hero-desc">
+      Upload your model, preview it holographically, choose your material,
+      and get it printed with industrial-grade precision. The future of
+      manufacturing is here.
+    </p>
+
+    <div class="hero-actions">
+      <a href="upload.html" class="btn btn-primary btn-lg btn-glow">
+        Upload Model
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="features.html" class="btn btn-ghost btn-lg">Explore Features</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number" data-count="500">0</div>
+        <div class="stat-label">Models Printed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="12">0</div>
+        <div class="stat-label">Materials</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="98">0</div>
+        <div class="stat-label">Success Rate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hologram Visual -->
+  <div class="hero-visual" id="heroVisual">
+    <div class="hologram-scene-wrap">
+      <!-- HUD Rings -->
+      <div class="holo-ring-container">
+        <div class="holo-ring holo-ring-1"></div>
+        <div class="holo-ring holo-ring-2"></div>
+        <div class="holo-ring holo-ring-3"></div>
+        <div class="holo-ring holo-ring-4"></div>
+      </div>
+
+      <!-- Three.js Canvas -->
+      <canvas id="heroCanvas" style="width:100%;height:100%;"></canvas>
+
+      <!-- Engineering Labels -->
+      <div class="eng-label eng-label-tl">
+        <span class="eng-key">LAYER</span><span class="eng-val">0.2 mm</span>
+        <span class="eng-key" style="margin-top:6px">MATERIAL</span><span class="eng-val" style="color:var(--violet)">PLA+</span>
+      </div>
+      <div class="eng-label eng-label-tr">
+        <span class="eng-key">TEMP</span><span class="eng-val" style="color:var(--orange)">200°C</span>
+        <span class="eng-key" style="margin-top:6px">SPEED</span><span class="eng-val">60 mm/s</span>
+      </div>
+      <div class="eng-label eng-label-bl">
+        <span class="eng-key">INFILL</span><span class="eng-val">20%</span>
+        <span class="eng-key" style="margin-top:6px">WEIGHT</span><span class="eng-val">14.2g</span>
+      </div>
+      <div class="eng-label eng-label-br">
+        <span class="eng-key">STATUS</span><span class="eng-val" style="color:var(--green)">● READY</span>
+        <span class="eng-key" style="margin-top:6px">ETA</span><span class="eng-val">1h 42m</span>
+      </div>
+
+      <div class="holo-platform-badge">⬡ PROJECTION ACTIVE</div>
+      <div class="holo-projection-base"></div>
+
+      <!-- Crosshairs -->
+      <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,255,0.10),transparent);pointer-events:none;z-index:3;"></div>
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(0,229,255,0.07),transparent);pointer-events:none;z-index:3;"></div>
+
+      <!-- Ticker -->
+      <div class="holo-ticker">
+        <div class="holo-ticker-inner">
+          <span>LAYER HEIGHT: 0.2mm</span><span class="holo-ticker-sep">◆</span>
+          <span>MATERIAL: PLA+</span><span class="holo-ticker-sep">◆</span>
+          <span>TEMP: 200°C</span><span class="holo-ticker-sep">◆</span>
+          <span>BED: 60°C</span><span class="holo-ticker-sep">◆</span>
+          <span>SPEED: 60mm/s</span><span class="holo-ticker-sep">◆</span>
+          <span>INFILL: 20%</span><span class="holo-ticker-sep">◆</span>
+          <span>STATUS: PRINTING</span><span class="holo-ticker-sep">◆</span>
+          <span>ETA: 1H 42M</span><span class="holo-ticker-sep">◆</span>
+          <span>LAYER HEIGHT: 0.2mm</span><span class="holo-ticker-sep">◆</span>
+          <span>MATERIAL: PLA+</span><span class="holo-ticker-sep">◆</span>
+          <span>TEMP: 200°C</span><span class="holo-ticker-sep">◆</span>
+          <span>STATUS: PRINTING</span><span class="holo-ticker-sep">◆</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ───────────────────────────────── -->
+<div class="section-divider"></div>
+<section class="section bg-grid" id="how-it-works">
+  <div class="container">
+    <div class="section-header reveal-item">
+      <span class="section-tag">Simple Process</span>
+      <h2>How <span class="gradient-text">It Works</span></h2>
+      <p>From upload to delivery in three streamlined steps.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal-item">
+        <div class="step-num">01</div>
+        <span class="step-icon">⬆</span>
+        <h3>Upload Model</h3>
+        <p>Upload STL, OBJ, 3MF, or G-code files. Our engine instantly analyses your model geometry and prepares it for slicing.</p>
+      </div>
+      <div class="step-card reveal-item">
+        <div class="step-num">02</div>
+        <span class="step-icon">⚙</span>
+        <h3>Configure Print</h3>
+        <p>Choose material, layer height, infill, and support settings. Get real-time cost and time estimates before you commit.</p>
+      </div>
+      <div class="step-card reveal-item">
+        <div class="step-num">03</div>
+        <span class="step-icon">✓</span>
+        <h3>Receive Print</h3>
+        <p>Track your print live on the dashboard. Delivered with quality assurance to your doorstep.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES PREVIEW ───────────────────────────── -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal-item">
+      <span class="section-tag">Capabilities</span>
+      <h2>Why <span class="gradient-text">3D Invenza</span></h2>
+      <p>Industrial precision meets next-generation holographic interface technology.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--cyan)">◈</div>
+        <h3>Real-Time Preview</h3>
+        <p>See your model holographically before committing to a print. Rotate, zoom, and inspect every detail.</p>
+        <a href="features.html" class="feature-link">Learn more →</a>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--violet)">⬡</div>
+        <h3>Layer Slicing</h3>
+        <p>Watch the layer-by-layer slicing simulation before printing. Validate wall thickness and infill instantly.</p>
+        <a href="features.html" class="feature-link">Learn more →</a>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--orange)">▶</div>
+        <h3>Live Dashboard</h3>
+        <p>Monitor your print in real-time with G-code stream, layer progress, and live printer status.</p>
+        <a href="dashboard.html" class="feature-link">Learn more →</a>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--cyan)">◆</div>
+        <h3>12+ Materials</h3>
+        <p>PLA, ABS, PETG, TPU, Resin, and more. Real-time cost and weight calculation for every material.</p>
+        <a href="products.html" class="feature-link">See materials →</a>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--violet)">⚡</div>
+        <h3>Fast Turnaround</h3>
+        <p>Same-day prints for standard models. Express service with priority queue for urgent projects.</p>
+        <a href="upload.html" class="feature-link">Start printing →</a>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--orange)">🎓</div>
+        <h3>Student Program</h3>
+        <p>Free keychain program for students. Register and get your personalized keychain printed for free.</p>
+        <a href="auth/register.html" class="feature-link">Register now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ──────────────────────────────────────── -->
+<div class="section-divider"></div>
+<section class="section" style="background:var(--bg-2);">
+  <div class="container">
+    <div class="mstats-row">
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" data-count="500">0</div>
+        <div class="stat-label">Models Printed</div>
+      </div>
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" data-count="12">0</div>
+        <div class="stat-label">Materials</div>
+      </div>
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" data-count="150">0</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" data-count="98">0</div>
+        <div class="stat-label">Success Rate %</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────── -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="container">
+    <div class="cta-card reveal-item">
+      <div class="holo-connector">SYSTEM READY</div>
+      <span class="section-tag">Start Now</span>
+      <h2>Ready to <span class="gradient-text">Print Your Idea?</span></h2>
+      <p>Upload your first model today and experience holographic 3D print preview, layer simulation, and precision printing.</p>
+      <div class="cta-actions">
+        <a href="upload.html"   class="btn btn-primary btn-lg btn-glow">Upload Your Model</a>
+        <a href="products.html" class="btn btn-ghost btn-lg">Browse Products</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ───────────────────────────────────────── -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="container-sm">
+    <div class="section-header reveal-item">
+      <span class="section-tag">FAQ</span>
+      <h2>Common <span class="gradient-text">Questions</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal-item">
+        <button class="faq-q">What file formats do you accept? <span class="faq-icon">+</span></button>
+        <div class="faq-a">STL, OBJ, 3MF, and G-code files are all supported. Maximum file size is 50MB per upload.</div>
+      </div>
+      <div class="faq-item reveal-item">
+        <button class="faq-q">How long does printing take? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Typical prints take 2–8 hours depending on size and complexity. Express service is available for same-day delivery.</div>
+      </div>
+      <div class="faq-item reveal-item">
+        <button class="faq-q">What materials are available? <span class="faq-icon">+</span></button>
+        <div class="faq-a">We offer PLA, PLA+, ABS, PETG, TPU (flexible), ASA, HIPS, Nylon, Standard Resin, Tough Resin, Carbon Fiber PLA, and Wood PLA.</div>
+      </div>
+      <div class="faq-item reveal-item">
+        <button class="faq-q">Is there a student discount? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes! Students get a free personalised keychain on registration and 15% off all prints with a valid student ID.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">⬡</div>
+          <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+        </a>
+        <p>Next-generation holographic 3D printing platform. Industrial precision, delivered to your door.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="upload.html">Upload Model</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Account</div>
+        <ul class="footer-links">
+          <li><a href="auth/login.html">Sign In</a></li>
+          <li><a href="auth/register.html">Register</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="keychain-system/index.html">Student Keychains</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Status</div>
+        <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3);display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;"></span><span>All systems operational</span></div>
+          <div>UPI: kushaldoshi26@oksbi</div>
+          <div style="margin-top:8px;color:var(--cyan);" id="sysClock">00:00:00</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 3D Invenza. All rights reserved.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#" title="Twitter">𝕏</a>
+        <a class="social-btn" href="#" title="GitHub">⌥</a>
+        <a class="social-btn" href="#" title="LinkedIn">in</a>
+        <a class="social-btn" href="contact.html" title="Contact">✉</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/jarvis.js"></script>
+<script src="js/hero-hologram.js"></script>
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const ans  = item.querySelector('.faq-a');
+      const icon = item.querySelector('.faq-icon');
+      const open = ans.style.display === 'block';
+      document.querySelectorAll('.faq-a').forEach(a => a.style.display = 'none');
+      document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+      if (!open) { ans.style.display = 'block'; icon.textContent = '−'; }
+    });
+  });
+</script>
+</body>
+</html>

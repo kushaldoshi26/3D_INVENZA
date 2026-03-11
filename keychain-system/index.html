@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Spotify Keychain — 3D Invenza Student Program</title>
+    <meta name="description"
+        content="Register your Spotify song and get a FREE custom 3D-printed keychain. Exclusive for students." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ── Tokens ── */
+        :root {
+            --bg: #020812;
+            --card: rgba(10, 20, 40, 0.8);
+            --cyan: #00f5ff;
+            --cyan-d: rgba(0, 245, 255, 0.1);
+            --violet: #7c3aed;
+            --orange: #f97316;
+            --orange-d: rgba(249, 115, 22, 0.15);
+            --border: rgba(0, 245, 255, 0.12);
+            --text: #e0f2fe;
+            --muted: rgba(224, 242, 254, 0.55);
+            --font-d: 'Orbitron', monospace;
+            --font-b: 'Inter', sans-serif;
+            --r: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-b);
+            font-size: 16px;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ── Layout ── */
+        .page-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-d);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 40px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--cyan);
+        }
+
+        /* ── Hero ── */
+        .kc-hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .kc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(29, 185, 84, 0.12);
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-family: var(--font-d);
+            color: #1db954;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .kc-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: #1db954;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.2
+            }
+        }
+
+        .kc-title {
+            font-family: var(--font-d);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .kc-title .grad {
+            background: linear-gradient(135deg, #1db954, var(--cyan), var(--violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kc-desc {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        .kc-preview {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .kc-chip {
+            padding: 10px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-family: var(--font-d);
+            font-size: 0.72rem;
+            color: var(--cyan);
+            letter-spacing: 0.08em;
+        }
+
+        /* ── Form Card ── */
+        .form-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+        }
+
+        .form-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border);
+            font-family: var(--font-d);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--cyan);
+        }
+
+        .form-body {
+            padding: 32px;
+        }
+
+        /* ── Grid ── */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media(max-width:640px) {
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .field-group {
+            margin-bottom: 0;
+        }
+
+        .field-label {
+            display: block;
+            font-family: var(--font-d);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .field-label .req {
+            color: var(--orange);
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(0, 245, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: var(--font-b);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--r);
+        }
+
+        .field-input:focus {
+            border-color: var(--cyan);
+            background: var(--cyan-d);
+            box-shadow: 0 0 16px rgba(0, 245, 255, 0.08);
+        }
+
+        .field-input::placeholder {
+            color: rgba(224, 242, 254, 0.25);
+        }
+
+        select.field-input {
+            cursor: pointer;
+        }
+
+        select.field-input option {
+            background: #0a1428;
+        }
+
+        .section-sep {
+            margin: 28px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sep-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .sep-label {
+            font-family: var(--font-d);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        /* Spotify preview */
+        .spotify-preview {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(29, 185, 84, 0.05);
+            border: 1px solid rgba(29, 185, 84, 0.2);
+            border-radius: 10px;
+            margin-top: 16px;
+        }
+
+        .spotify-icon {
+            width: 40px;
+            height: 40px;
+            background: #1db954;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .spotify-preview p {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .spotify-preview strong {
+            color: var(--text);
+        }
+
+        /* Terms checkbox */
+        .terms-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .terms-row input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--cyan);
+            flex-shrink: 0;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .terms-row label {
+            font-size: 0.85rem;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .terms-row a {
+            color: var(--cyan);
+        }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            padding: 17px;
+            background: linear-gradient(135deg, #1db954, #15803d);
+            color: #fff;
+            font-family: var(--font-d);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--r);
+            box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
+            animation: greenPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes greenPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(29, 185, 84, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 35px rgba(29, 185, 84, 0.5);
+            }
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Success banner */
+        .success-banner {
+            display: none;
+            padding: 24px 32px;
+            background: rgba(29, 185, 84, 0.1);
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            border-radius: 10px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .success-banner.show {
+            display: block;
+        }
+
+        .success-banner h3 {
+            font-family: var(--font-d);
+            color: #1db954;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .success-banner p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* Back nav */
+        .kc-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 32px;
+            background: rgba(2, 8, 18, 0.95);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-logo-sm {
+            font-family: var(--font-d);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-logo-sm span {
+            color: var(--text);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="kc-nav">
+        <a href="../index.html" class="nav-logo-sm"><span>3D</span>INVENZA</a>
+        <a href="../index.html"
+            style="font-family:var(--font-d);font-size:0.65rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;">←
+            Back to Platform</a>
+    </nav>
+
+    <div class="page-wrap">
+        <!-- Hero -->
+        <div class="kc-hero">
+            <div class="kc-badge"><span class="dot"></span> Student Exclusive Program</div>
+            <h1 class="kc-title">Get Your Free<br /><span class="grad">Spotify Keychain</span></h1>
+            <p class="kc-desc">Register below with your favorite Spotify song link and we'll 3D print a unique keychain
+                — with your song's barcode engraved on it — absolutely FREE.</p>
+            <div class="kc-preview">
+                <span class="kc-chip">🎵 Your Spotify Song</span>
+                <span class="kc-chip">→</span>
+                <span class="kc-chip">🔑 3D Printed Keychain</span>
+            </div>
+            <p style="font-size:0.8rem;color:var(--muted);font-family:var(--font-d);letter-spacing:0.08em">LIMITED SLOTS
+                AVAILABLE — REGISTER NOW</p>
+        </div>
+
+        <!-- Success Banner -->
+        <div class="success-banner" id="successBanner">
+            <h3>✓ Registration Successful!</h3>
+            <p>Thank you! We've received your details. Your keychain will be ready within 3–5 working days. We'll
+                contact you on your registered phone number.</p>
+        </div>
+
+        <!-- Form -->
+        <div class="form-card">
+            <div class="form-header">📋 Student Registration Form</div>
+            <div class="form-body">
+                <form id="keychainForm" action="submit.php" method="POST">
+
+                    <!-- Personal Info -->
+                    <div class="section-sep">
+                        <div class="sep-line"></div>
+                        <span class="sep-label">Personal Information</span>
+                        <div class="sep-line"></div>
+                    </div>
+
+                    <div class="grid-2" style="margin-bottom:20px">
+                        <div class="field-group">
+                            <label class="field-label" for="kName">Full Name <span class="req">*</span></label>
+                            <input class="field-input" type="text" id="kName" name="name" placeholder="Your full name"
+                                required />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="kEnroll">Enrollment Number <span
+                                    class="req">*</span></label>
+                            <input class="field-input" type="text" id="kEnroll" name="enrollment"
+                                placeholder="e.g. 22CS0001" required />
+                        </div>
+                    </div>
+
+                    <div class="grid-3" style="margin-bottom:20px">
+                        <div class="field-group">
+                            <label class="field-label" for="kGender">Gender</label>
+                            <select class="field-input" id="kGender" name="gender">
+                                <option value="">Select…</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="kPhone">Phone <span class="req">*</span></label>
+                            <input class="field-input" type="tel" id="kPhone" name="phone" placeholder="+91 XXXXX XXXXX"
+                                required />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="kEmail">Email</label>
+                            <input class="field-input" type="email" id="kEmail" name="email"
+                                placeholder="you@email.com" />
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-bottom:20px">
+                        <div class="field-group">
+                            <label class="field-label" for="kCity">City</label>
+                            <input class="field-input" type="text" id="kCity" name="city" placeholder="Your city" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="kInsta">Instagram Handle</label>
+                            <input class="field-input" type="text" id="kInsta" name="instagram"
+                                placeholder="@yourusername" />
+                        </div>
+                    </div>
+
+                    <!-- Academic Info -->
+                    <div class="section-sep">
+                        <div class="sep-line"></div>
+                        <span class="sep-label">Academic Information</span>
+                        <div class="sep-line"></div>
+                    </div>
+
+                    <div class="grid-3" style="margin-bottom:20px">
+                        <div class="field-group">
+                            <label class="field-label" for="kDept">Department <span class="req">*</span></label>
+                            <select class="field-input" id="kDept" name="department" required>
+                                <option value="">Select…</option>
+                                <option>Computer Science</option>
+                                <option>Mechanical Engineering</option>
+                                <option>Electrical Engineering</option>
+                                <option>Civil Engineering</option>
+                                <option>Electronics & Comm.</option>
+                                <option>Information Technology</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="kYear">Academic Year <span class="req">*</span></label>
+                            <select class="field-input" id="kYear" name="year" required>
+                                <option value="">Select…</option>
+                                <option>1st Year</option>
+                                <option>2nd Year</option>
+                                <option>3rd Year</option>
+                                <option>4th Year</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label" for="kBatch">Batch</label>
+                            <input class="field-input" type="text" id="kBatch" name="batch"
+                                placeholder="e.g. 2022–2026" />
+                        </div>
+                    </div>
+
+                    <!-- Song Info -->
+                    <div class="section-sep">
+                        <div class="sep-line"></div>
+                        <span class="sep-label">🎵 Spotify Song Details</span>
+                        <div class="sep-line"></div>
+                    </div>
+
+                    <div class="field-group" style="margin-bottom:16px">
+                        <label class="field-label" for="kSong">Spotify Song Link <span class="req">*</span></label>
+                        <input class="field-input" type="url" id="kSong" name="song_link"
+                            placeholder="https://open.spotify.com/track/..." required />
+                    </div>
+
+                    <div class="spotify-preview" id="spotifyPreview" style="display:none">
+                        <div class="spotify-icon">🎵</div>
+                        <div>
+                            <strong id="spotifyLinkDisplay"></strong>
+                            <p>Song link detected — barcode will be generated automatically</p>
+                        </div>
+                    </div>
+
+                    <div class="field-group" style="margin-top:20px">
+                        <label class="field-label" for="kTitle">Title to Engrave on Keychain <span
+                                class="req">*</span></label>
+                        <input class="field-input" type="text" id="kTitle" name="title"
+                            placeholder="e.g. Namya 💙 or your name" maxlength="20" required />
+                        <p
+                            style="font-size:0.75rem;color:var(--muted);margin-top:6px;font-family:var(--font-d);letter-spacing:0.05em">
+                            Max 20 characters — this will be engraved on the keychain</p>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="terms-row">
+                        <input type="checkbox" id="kTerms" required />
+                        <label for="kTerms">I confirm that I am a registered student and agree to the <a href="#">terms
+                                and conditions</a> of the 3D Invenza free keychain program.</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Register &amp; Claim Free Keychain 🔑
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Bottom note -->
+        <p style="text-align:center;color:var(--muted);font-size:0.82rem;margin-top:32px">
+            Your data is safe and will only be used for keychain production.
+            Questions? <a href="../contact.html" style="color:var(--cyan)">Contact us</a>.
+        </p>
+    </div>
+
+    <script>
+        // Spotify link detection preview
+        const songInput = document.getElementById('kSong');
+        const preview = document.getElementById('spotifyPreview');
+        const previewTxt = document.getElementById('spotifyLinkDisplay');
+        songInput?.addEventListener('input', function () {
+            if (this.value.includes('spotify.com/track/')) {
+                preview.style.display = 'flex';
+                const id = this.value.split('/').pop().split('?')[0];
+                previewTxt.textContent = 'Track ID: ' + id.substr(0, 12) + '...';
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        // Form submit (works without PHP too — demo mode)
+        document.getElementById('keychainForm')?.addEventListener('submit', function (e) {
+            // If PHP not available, handle client-side
+            const action = this.getAttribute('action');
+            if (!action) {
+                e.preventDefault();
+                showSuccess();
+                return;
+            }
+            // Let PHP handle — but also show success on same page redirect
+        });
+
+        // Demo mode: intercept if no PHP available
+        const btn = document.getElementById('submitBtn');
+        document.getElementById('keychainForm')?.addEventListener('submit', function (e) {
+            // Show success visually after brief delay
+            setTimeout(() => {
+                document.getElementById('successBanner')?.classList.add('show');
+                document.getElementById('successBanner')?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        });
+
+        function showSuccess() {
+            document.getElementById('successBanner')?.classList.add('show');
+            document.getElementById('successBanner')?.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('keychainForm').style.opacity = '0.5';
+            document.getElementById('keychainForm').style.pointerEvents = 'none';
+        }
+    </script>
+</body>
+
+</html>

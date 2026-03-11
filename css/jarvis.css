@@ -1,0 +1,715 @@
+/* ============================================
+   3D INVENZA — JARVIS System CSS v3.0
+   Full holographic global layer
+   ============================================ */
+
+/* ─── JARVIS Boot Overlay ───────────────────── */
+#jarvisBootOverlay {
+    position: fixed;
+    inset: 0;
+    background: #000814;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+#jarvisBootOverlay.fade-out {
+    opacity: 0;
+}
+
+.boot-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: #00f5ff;
+    text-shadow: 0 0 30px rgba(0, 245, 255, 0.6), 0 0 60px rgba(0, 245, 255, 0.3);
+    animation: bootPulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes bootPulse {
+    from {
+        opacity: 0.6;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.boot-bar-wrap {
+    margin-top: 32px;
+    width: min(320px, 80vw);
+    height: 3px;
+    background: rgba(0, 245, 255, 0.12);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.boot-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00f5ff, #7c3aed);
+    border-radius: 4px;
+    animation: bootLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes bootLoad {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.boot-status {
+    margin-top: 16px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: rgba(0, 245, 255, 0.5);
+    animation: statusFlicker 0.3s step-start infinite;
+}
+
+@keyframes statusFlicker {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* ─── HUD Frame Decorator ───────────────────── */
+.hud-frame {
+    position: relative !important;
+}
+
+.hud-frame::before,
+.hud-frame::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--cyan-glow, #00f5ff);
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.hud-frame:hover::before,
+.hud-frame:hover::after {
+    opacity: 1;
+}
+
+.hud-frame::before {
+    top: 6px;
+    left: 6px;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.hud-frame::after {
+    bottom: 6px;
+    right: 6px;
+    border-left: 0;
+    border-top: 0;
+}
+
+/* ─── System Clock / HUD Bar ─────────────────── */
+#sysClock {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(0, 245, 255, 0.6);
+}
+
+/* ─── Enhanced Page Hero ─────────────────────── */
+.page-hero {
+    padding: 140px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0, 245, 255, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(124, 58, 237, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.page-hero-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+}
+
+.page-hero-desc {
+    max-width: 540px;
+    margin: 0 auto;
+    color: rgba(224, 242, 254, 0.5);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.page-hero-stats {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 48px;
+    flex-wrap: wrap;
+}
+
+.phstat-val {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #00f5ff;
+    text-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+}
+
+.phstat-lbl {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(224, 242, 254, 0.45);
+    margin-top: 4px;
+}
+
+/* ─── Feature Detail Cards ───────────────────── */
+.features-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 0 24px 80px;
+}
+
+.feature-detail-card {
+    background: linear-gradient(145deg, rgba(8, 18, 38, 0.85), rgba(4, 10, 24, 0.95));
+    border: 1px solid rgba(0, 245, 255, 0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+}
+
+.feature-detail-card:hover {
+    border-color: rgba(0, 245, 255, 0.35);
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.08), 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.feature-detail-card .feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.feature-detail-card .feature-icon.cyan {
+    background: rgba(0, 245, 255, 0.08);
+    border: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+.feature-detail-card .feature-icon.violet {
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.feature-detail-card .feature-icon.orange {
+    background: rgba(249, 115, 22, 0.08);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.feature-detail-card h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+}
+
+.feature-detail-card p {
+    color: rgba(224, 242, 254, 0.5);
+    line-height: 1.8;
+    font-size: 0.9rem;
+}
+
+.feature-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.feature-chip {
+    padding: 3px 10px;
+    border: 1px solid rgba(0, 245, 255, 0.18);
+    border-radius: 20px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: rgba(0, 245, 255, 0.7);
+}
+
+/* ─── Product Detail Cards ───────────────────── */
+.products-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 0 24px 80px;
+}
+
+.product-detail-card {
+    background: linear-gradient(145deg, rgba(8, 18, 38, 0.85), rgba(4, 10, 24, 0.95));
+    border: 1px solid rgba(0, 245, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.product-detail-card:hover {
+    border-color: rgba(0, 245, 255, 0.35);
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.08);
+}
+
+.product-img-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.05), rgba(124, 58, 237, 0.05));
+    border-bottom: 1px solid rgba(0, 245, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.product-img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center bottom, rgba(0, 245, 255, 0.06), transparent 70%);
+}
+
+.product-3d-viewer {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.product-detail-info {
+    padding: 24px;
+}
+
+.product-detail-info h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.product-detail-info p {
+    color: rgba(224, 242, 254, 0.5);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.product-price {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--orange, #f97316);
+}
+
+.product-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    background: rgba(0, 245, 255, 0.08);
+    border: 1px solid rgba(0, 245, 255, 0.2);
+    border-radius: 20px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: #00f5ff;
+    margin-bottom: 10px;
+}
+
+.product-order-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #00f5ff, #0088ff);
+    color: #000;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.product-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+/* ─── 3D Product Shapes ──────────────────────── */
+.p3d-gear {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: conic-gradient(rgba(0, 245, 255, 0.18) 0deg 30deg, transparent 30deg 60deg, rgba(0, 245, 255, 0.18) 60deg 90deg, transparent 90deg 120deg, rgba(0, 245, 255, 0.18) 120deg 150deg, transparent 150deg 180deg, rgba(0, 245, 255, 0.18) 180deg 210deg, transparent 210deg 240deg, rgba(0, 245, 255, 0.18) 240deg 270deg, transparent 270deg 300deg, rgba(0, 245, 255, 0.18) 300deg 330deg, transparent 330deg 360deg);
+    border: 2px solid rgba(0, 245, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
+    animation: spinSlow 8s linear infinite;
+}
+
+.p3d-keychain {
+    width: 60px;
+    height: 90px;
+    border: 2px solid rgba(249, 115, 22, 0.5);
+    border-radius: 10px;
+    background: rgba(249, 115, 22, 0.06);
+    box-shadow: 0 0 24px rgba(249, 115, 22, 0.2);
+    position: relative;
+    animation: float 4s ease-in-out -1s infinite;
+}
+
+.p3d-keychain::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(249, 115, 22, 0.4);
+    border-bottom: 0;
+    border-radius: 20px 20px 0 0;
+}
+
+.p3d-arch {
+    width: 100px;
+    height: 80px;
+    border: 2px solid rgba(124, 58, 237, 0.4);
+    border-radius: 8px;
+    background: rgba(124, 58, 237, 0.06);
+    box-shadow: 0 0 24px rgba(124, 58, 237, 0.2);
+    animation: float 4s ease-in-out -2s infinite;
+}
+
+.p3d-case {
+    width: 60px;
+    height: 100px;
+    border: 2px solid rgba(0, 245, 255, 0.35);
+    border-radius: 12px;
+    background: rgba(0, 245, 255, 0.05);
+    box-shadow: 0 0 24px rgba(0, 245, 255, 0.15);
+    animation: float 4s ease-in-out infinite;
+}
+
+.p3d-plate {
+    width: 110px;
+    height: 55px;
+    border: 2px solid rgba(249, 115, 22, 0.35);
+    border-radius: 6px;
+    background: rgba(249, 115, 22, 0.05);
+    box-shadow: 0 0 24px rgba(249, 115, 22, 0.15);
+    animation: float 4s ease-in-out -0.5s infinite;
+}
+
+.p3d-figure {
+    width: 55px;
+    height: 100px;
+    border: 2px solid rgba(124, 58, 237, 0.4);
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.12), rgba(0, 0, 0, 0));
+    box-shadow: 0 0 24px rgba(124, 58, 237, 0.2);
+    animation: float 4s ease-in-out -1.5s infinite;
+}
+
+@keyframes spinSlow {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ─── CTA Card ───────────────────────────────── */
+.cta-card {
+    background: linear-gradient(135deg, rgba(8, 18, 38, 0.9), rgba(4, 10, 24, 0.98));
+    border: 1px solid rgba(0, 245, 255, 0.15);
+    border-radius: 24px;
+    padding: 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-card h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 900;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ─── Section Headers ────────────────────────── */
+.section-header {
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+.section-header h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 900;
+}
+
+.section-header p {
+    color: rgba(224, 242, 254, 0.5);
+    margin-top: 12px;
+    max-width: 540px;
+    margin: 12px auto 0;
+}
+
+/* ─── Section Padding Utility ────────────────── */
+.section-pad {
+    padding: 100px 24px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── Progress Bars (dashboard) ──────────────── */
+.hud-progress {
+    height: 4px;
+    background: rgba(0, 245, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.hud-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00f5ff, #7c3aed);
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+/* ─── Footer Enhancements ────────────────────── */
+.footer {
+    border-top: 1px solid rgba(0, 245, 255, 0.08) !important;
+    background: rgba(2, 6, 16, 0.98) !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── Hologram container (hero page) ─────────── */
+.hologram-container {
+    width: 100%;
+    height: 620px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* ─── Reveal Animations ──────────────────────── */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-item.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.reveal-item:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.reveal-item:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.reveal-item:nth-child(4) {
+    transition-delay: 0.3s;
+}
+
+.reveal-item:nth-child(5) {
+    transition-delay: 0.4s;
+}
+
+.reveal-item:nth-child(6) {
+    transition-delay: 0.5s;
+}
+
+.reveal-item:nth-child(7) {
+    transition-delay: 0.22s;
+}
+
+.reveal-item:nth-child(8) {
+    transition-delay: 0.33s;
+}
+
+/* ─── Responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+
+    .features-detail-grid,
+    .products-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-card {
+        padding: 36px 20px;
+    }
+
+    .page-hero {
+        padding: 120px 20px 60px;
+    }
+}
+
+/* ─── Webkit Prefix Fixes (Safari) ──────────── */
+.glass-panel,
+.feature-detail-card,
+.product-detail-card,
+.up-panel,
+.viewer-wrap,
+nav.navbar {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+-webkit-user-select: none {
+    user-select: none;
+}
+
+/* ─── Glow Pulse on Stats ────────────────────── */
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px rgba(0, 245, 255, 0.4);
+    }
+
+    50% {
+        text-shadow: 0 0 24px rgba(0, 245, 255, 0.9), 0 0 48px rgba(0, 245, 255, 0.3);
+    }
+}
+
+.stat-glow {
+    animation: glowPulse 3s ease infinite;
+}
+
+/* ─── Holographic scan rings ─────────────────── */
+@keyframes expandRing {
+    from {
+        transform: scale(0.5);
+        opacity: 0.6;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.scan-ring {
+    position: absolute;
+    border: 1px solid rgba(0, 245, 255, 0.3);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -100px;
+    animation: expandRing 3s ease-out infinite;
+    pointer-events: none;
+}
+
+.scan-ring:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.scan-ring:nth-child(3) {
+    animation-delay: 2s;
+}
+
+/* ─── System status pills ────────────────────── */
+.sys-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(0, 245, 255, 0.06);
+    border: 1px solid rgba(0, 245, 255, 0.18);
+    border-radius: 20px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: rgba(0, 245, 255, 0.7);
+}
+
+.sys-pill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00f5ff;
+    box-shadow: 0 0 6px rgba(0, 245, 255, 0.8);
+    animation: blinkPulse 2s ease infinite;
+}
+
+@keyframes blinkPulse {
+
+    0%,
+    100% {
+        opacity: 1
+    }
+
+    50% {
+        opacity: 0.2
+    }
+}
+
+/* ─── Data stream text ───────────────────────── */
+#dataStream {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    color: rgba(0, 245, 255, 0.025);
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.3;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* ─── user-select vendor prefix fix ─────────── */
+body {
+    -webkit-user-select: auto;
+    user-select: auto;
+}

@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-multipart
+trimesh
+numpy
+Pillow
+sqlalchemy
+psycopg2-binary
+pydantic
+aiofiles
+httpx
+requests
+openai
+python-dotenv

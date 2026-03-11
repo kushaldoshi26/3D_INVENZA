@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products &amp; Materials — 3D Invenza</title>
+  <meta name="description" content="Browse 3D Invenza's product catalog: materials, print services, and pricing. Choose your filament and start printing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/holographic.css" />
+  <link rel="stylesheet" href="css/jarvis.css" />
+</head>
+<body>
+
+<div id="dataStream"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⬡</div>
+      <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"     class="nav-link">Home</a></li>
+      <li><a href="features.html"  class="nav-link">Features</a></li>
+      <li><a href="products.html"  class="nav-link active">Products</a></li>
+      <li><a href="upload.html"    class="nav-link">Upload</a></li>
+      <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="contact.html"   class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="auth/login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="section" style="padding-top:130px;padding-bottom:48px;background:var(--bg-2);border-bottom:1px solid var(--border-2);">
+  <div class="container">
+    <div class="orb orb-1"></div>
+    <span class="section-tag">Catalog</span>
+    <h1 class="display-2">Products <span class="gradient-text">&amp; Materials</span></h1>
+    <p style="color:var(--text-2);font-size:1.05rem;max-width:500px;line-height:1.75;margin-top:16px;">
+      Choose from 12+ filament types and a range of printing services, all with real-time pricing.
+    </p>
+    <!-- Filter tabs -->
+    <div style="display:flex;gap:10px;margin-top:32px;flex-wrap:wrap;" id="filterTabs">
+      <button class="btn btn-sm btn-outline active-filter" data-filter="all">All</button>
+      <button class="btn btn-sm btn-ghost" data-filter="standard">Standard</button>
+      <button class="btn btn-sm btn-ghost" data-filter="engineering">Engineering</button>
+      <button class="btn btn-sm btn-ghost" data-filter="specialty">Specialty</button>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT GRID -->
+<section class="section">
+  <div class="container">
+    <div class="grid-3" id="productGrid">
+
+      <div class="product-card reveal-item" data-category="standard">
+        <div class="product-card-img">🧱</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-cyan">Standard</span>
+          <h3>PLA+ Print</h3>
+          <p>Easiest to print, great surface finish. Perfect for prototypes, display models, and low-stress parts.</p>
+          <div class="product-price">₹149 <span>/ 10g</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">200°C · 60°C bed</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="engineering">
+        <div class="product-card-img">⚙️</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-orange">Engineering</span>
+          <h3>ABS Print</h3>
+          <p>High heat resistance and impact strength. Ideal for automotive parts, enclosures, and functional components.</p>
+          <div class="product-price">₹179 <span>/ 10g</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">240°C · 100°C bed</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="standard">
+        <div class="product-card-img">🔷</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-cyan">Standard</span>
+          <h3>PETG Print</h3>
+          <p>Combines the ease of PLA with the strength of ABS. Food-safe, chemical resistant, and semi-flexible.</p>
+          <div class="product-price">₹199 <span>/ 10g</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">230°C · 80°C bed</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="specialty">
+        <div class="product-card-img">🌀</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-violet">Specialty</span>
+          <h3>TPU Flexible</h3>
+          <p>Rubber-like flexibility with excellent durability. Great for phone cases, grips, seals, and wearables.</p>
+          <div class="product-price">₹249 <span>/ 10g</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">220°C · No bed heat</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="engineering">
+        <div class="product-card-img">🧵</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-orange">Engineering</span>
+          <h3>Nylon Print</h3>
+          <p>Maximum strength with flexibility. Used in gears, living hinges, and industrial mechanical parts.</p>
+          <div class="product-price">₹299 <span>/ 10g</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">260°C · 70°C bed</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="specialty">
+        <div class="product-card-img">🏎️</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-violet">Specialty</span>
+          <h3>Carbon Fiber</h3>
+          <p>Ultra-stiff, lightweight composite material. Used in aerospace, motorsport, and high-end prototyping.</p>
+          <div class="product-price">₹499 <span>/ 10g</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">220°C · 60°C bed</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="specialty">
+        <div class="product-card-img">🌲</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-cyan">Specialty</span>
+          <h3>Wood PLA</h3>
+          <p>Real wood fibre composite with authentic wood texture. Perfect for art pieces, home decor, and cosplay props.</p>
+          <div class="product-price">₹229 <span>/ 10g</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">200°C · 60°C bed</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="specialty">
+        <div class="product-card-img">💎</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-violet">Specialty</span>
+          <h3>Resin Print</h3>
+          <p>Ultra-high detail with a smooth surface finish ideal for jewellery, miniatures, dental, and artistic prints.</p>
+          <div class="product-price">₹399 <span>/ ml</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">MSLA / UV Cure</span>
+          <a href="upload.html" class="btn btn-outline btn-sm">Order Now</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal-item" data-category="standard">
+        <div class="product-card-img">🎓</div>
+        <div class="product-card-body">
+          <span class="product-badge badge-cyan">Free</span>
+          <h3>Student Keychain</h3>
+          <p>Free personalised keychain for every registered student. Register with your college email to claim yours.</p>
+          <div class="product-price">₹0 <span>/ Free</span></div>
+        </div>
+        <div class="product-card-footer">
+          <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);">PLA+ · ≤20g</span>
+          <a href="auth/register.html" class="btn btn-primary btn-sm">Claim Free</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><div class="logo-icon">⬡</div><span class="logo-text">3D<span class="accent">INVENZA</span></span></a>
+        <p>Next-generation holographic 3D printing platform.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="upload.html">Upload Model</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Account</div>
+        <ul class="footer-links">
+          <li><a href="auth/login.html">Sign In</a></li>
+          <li><a href="auth/register.html">Register</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Status</div>
+        <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;"></span>All systems operational</div>
+          <div style="color:var(--cyan);" id="sysClock">00:00:00</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 3D Invenza. All rights reserved.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#">𝕏</a>
+        <a class="social-btn" href="#">⌥</a>
+        <a class="social-btn" href="#">in</a>
+        <a class="social-btn" href="contact.html">✉</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/jarvis.js"></script>
+<script>
+  // Filter tabs
+  const tabs = document.querySelectorAll('[data-filter]');
+  const cards = document.querySelectorAll('#productGrid .product-card');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active-filter', 'btn-outline'); t.classList.add('btn-ghost'); });
+      tab.classList.add('active-filter', 'btn-outline'); tab.classList.remove('btn-ghost');
+      const f = tab.dataset.filter;
+      cards.forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.category === f) ? '' : 'none';
+      });
+    });
+  });
+  document.querySelector('[data-filter="all"]').classList.add('btn-outline');
+  document.querySelector('[data-filter="all"]').classList.remove('btn-ghost');
+</script>
+</body>
+</html>

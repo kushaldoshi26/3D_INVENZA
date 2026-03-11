@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — 3D Invenza</title>
+  <meta name="description" content="Create a 3D Invenza account. Students get a free personalised keychain on signup." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/holographic.css" />
+</head>
+<body>
+
+<div id="dataStream"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="orb orb-1" style="position:fixed;"></div>
+<div class="orb orb-2" style="position:fixed;"></div>
+
+<!-- Back nav -->
+<div style="position:fixed;top:0;left:0;right:0;padding:20px 32px;z-index:100;display:flex;align-items:center;gap:16px;">
+  <a href="../index.html" class="nav-logo">
+    <div class="logo-icon">⬡</div>
+    <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+  </a>
+</div>
+
+<div class="auth-page" style="padding:120px 20px 40px;">
+  <div class="auth-card" style="max-width:520px;">
+    <div class="auth-logo">
+      <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--cyan),var(--violet));border-radius:16px;display:grid;place-items:center;font-size:1.5rem;color:#000;margin:0 auto 20px;">⬡</div>
+    </div>
+    <div class="auth-title">Create Account</div>
+    <div class="auth-sub">Join 3D Invenza · Students get a free keychain 🎓</div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:32px;">
+      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px rgba(34,197,94,0.8);"></span>
+      <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);letter-spacing:0.15em;">SECURE REGISTRATION</span>
+    </div>
+
+    <form action="../backend/auth/register.php" method="POST" onsubmit="return validateRegister()">
+      <div class="grid-2" style="gap:16px;">
+        <div class="form-group">
+          <label class="form-label" for="firstName">First Name</label>
+          <input type="text" id="firstName" name="first_name" class="form-input" placeholder="First" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="last_name" class="form-input" placeholder="Last" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regEmail">Email Address</label>
+        <input type="email" id="regEmail" name="email" class="form-input" placeholder="your@email.com" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 XXXXX XXXXX" />
+      </div>
+
+      <!-- Role selector -->
+      <div class="form-group">
+        <label class="form-label">I am a</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+          <label style="display:flex;align-items:center;gap:10px;padding:14px;border:1px solid var(--border-2);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .25s;" id="roleStudent">
+            <input type="radio" name="role" value="student" checked style="accent-color:var(--cyan);" />
+            <div>
+              <div style="font-family:var(--font-display);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;">STUDENT</div>
+              <div style="font-size:0.72rem;color:var(--text-3);margin-top:2px;">Free keychain 🎓</div>
+            </div>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:14px;border:1px solid var(--border-2);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .25s;" id="roleCustomer">
+            <input type="radio" name="role" value="customer" style="accent-color:var(--cyan);" />
+            <div>
+              <div style="font-family:var(--font-display);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;">CUSTOMER</div>
+              <div style="font-size:0.72rem;color:var(--text-3);margin-top:2px;">Full access</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Student fields (shown if student) -->
+      <div id="studentFields">
+        <div class="form-group">
+          <label class="form-label" for="college">College / University</label>
+          <input type="text" id="college" name="college" class="form-input" placeholder="Your institution" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="keychainText">Keychain Text <span style="color:var(--text-3);font-weight:400;">(max 12 chars)</span></label>
+          <input type="text" id="keychainText" name="keychain_text" class="form-input" placeholder="Your name or text" maxlength="12" />
+          <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);margin-top:6px;letter-spacing:0.1em;">
+            ◈ This will be 3D printed on your free keychain
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regPass">Password</label>
+        <input type="password" id="regPass" name="password" class="form-input" placeholder="Min 8 characters" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="regPass2">Confirm Password</label>
+        <input type="password" id="regPass2" name="password_confirm" class="form-input" placeholder="Re-enter password" required />
+      </div>
+
+      <label style="display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border-2);border-radius:var(--radius-sm);margin-bottom:24px;cursor:pointer;">
+        <input type="checkbox" id="termsCheck" style="width:14px;height:14px;accent-color:var(--cyan);flex-shrink:0;margin-top:2px;" required />
+        <span style="font-size:0.82rem;color:var(--text-2);line-height:1.5;">
+          I agree to the Terms of Service and Privacy Policy.
+          For students: I confirm I am currently enrolled in a recognised educational institution.
+        </span>
+      </label>
+
+      <button type="submit" class="btn btn-primary btn-glow" style="width:100%;justify-content:center;">
+        Create Account
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+
+      <div id="regError" style="display:none;margin-top:16px;text-align:center;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.1em;color:#ef4444;padding:10px;border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);background:rgba(239,68,68,0.05);"></div>
+    </form>
+
+    <div class="auth-divider">already have an account?</div>
+    <div style="text-align:center;font-size:0.88rem;color:var(--text-2);">
+      <a href="login.html" class="auth-link">Sign in instead →</a>
+    </div>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+  // Role toggle
+  document.querySelectorAll('[name="role"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('studentFields').style.display = r.value === 'student' ? 'block' : 'none';
+      document.getElementById('roleStudent').style.borderColor = r.value === 'student' ? 'var(--cyan)' : 'var(--border-2)';
+      document.getElementById('roleCustomer').style.borderColor = r.value === 'customer' ? 'var(--cyan)' : 'var(--border-2)';
+    });
+  });
+  document.getElementById('roleStudent').style.borderColor = 'var(--cyan)';
+
+  // Cursor
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (dot && ring) {
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+    (function a() { rx += (mx-rx)*.12; ry += (my-ry)*.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(a); })();
+  }
+
+  function validateRegister() {
+    var p1 = document.getElementById('regPass').value;
+    var p2 = document.getElementById('regPass2').value;
+    var err = document.getElementById('regError');
+    if (p1.length < 8) { err.style.display = 'block'; err.textContent = 'Password must be at least 8 characters.'; return false; }
+    if (p1 !== p2) { err.style.display = 'block'; err.textContent = 'Passwords do not match.'; return false; }
+    if (!document.getElementById('termsCheck').checked) { err.style.display = 'block'; err.textContent = 'Please accept the Terms of Service.'; return false; }
+    return true;
+  }
+</script>
+</body>
+</html>

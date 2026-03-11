@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — 3D Invenza</title>
+  <meta name="description" content="Track your 3D print orders in real-time. Monitor layer progress, temperatures, and delivery status." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/holographic.css" />
+  <link rel="stylesheet" href="css/jarvis.css" />
+</head>
+<body>
+
+<div id="dataStream"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⬡</div>
+      <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"     class="nav-link">Home</a></li>
+      <li><a href="features.html"  class="nav-link">Features</a></li>
+      <li><a href="products.html"  class="nav-link">Products</a></li>
+      <li><a href="upload.html"    class="nav-link">Upload</a></li>
+      <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+      <li><a href="contact.html"   class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="auth/login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="section" style="padding-top:130px;padding-bottom:48px;background:var(--bg-2);border-bottom:1px solid var(--border-2);">
+  <div class="container">
+    <div class="orb orb-1"></div>
+    <span class="section-tag">Live Monitoring</span>
+    <h1 class="display-2">Print <span class="gradient-text">Dashboard</span></h1>
+    <p style="color:var(--text-2);font-size:1.05rem;max-width:500px;line-height:1.75;margin-top:16px;">
+      Monitor your active prints, track orders, and view slicer telemetry in real time.
+    </p>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section bg-grid">
+  <div class="container">
+
+    <!-- Stat row -->
+    <div class="mstats-row" style="margin-bottom:40px;">
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" style="font-size:2rem;">3</div>
+        <div class="stat-label">Active Orders</div>
+      </div>
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" style="font-size:2rem;">12</div>
+        <div class="stat-label">Completed</div>
+      </div>
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" style="font-size:2rem;">1</div>
+        <div class="stat-label">In Queue</div>
+      </div>
+      <div class="mstat reveal-item">
+        <div class="stat-number stat-glow" style="font-size:2rem;color:var(--green);">98</div>
+        <div class="stat-label">Success Rate %</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:32px;align-items:start;">
+
+      <!-- Orders -->
+      <div>
+        <h2 style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:20px;">
+          ◈ Active Orders
+        </h2>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <div class="order-card reveal-item">
+            <div class="order-thumb">🦾</div>
+            <div class="order-info">
+              <div class="order-name">Robotic Arm Joint</div>
+              <div class="order-meta">PLA+ · 0.2mm · 20% infill</div>
+              <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill" style="width:72%;"></div></div>
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);margin-top:6px;">Layer 144 / 200 · ETA: 38 min</div>
+            </div>
+            <span class="status-badge status-printing">PRINTING</span>
+          </div>
+
+          <div class="order-card reveal-item">
+            <div class="order-thumb">🏠</div>
+            <div class="order-info">
+              <div class="order-name">Architectural Model</div>
+              <div class="order-meta">PETG · 0.3mm · 15% infill</div>
+              <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill" style="width:15%;"></div></div>
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);margin-top:6px;">Layer 30 / 200 · ETA: 3h 12m</div>
+            </div>
+            <span class="status-badge status-printing">PRINTING</span>
+          </div>
+
+          <div class="order-card reveal-item">
+            <div class="order-thumb">🎭</div>
+            <div class="order-info">
+              <div class="order-name">Cosplay Helmet Piece</div>
+              <div class="order-meta">ABS · 0.1mm · 30% infill</div>
+              <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill" style="width:0%;background:var(--orange);"></div></div>
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);margin-top:6px;">Queued · Estimated start: 4h</div>
+            </div>
+            <span class="status-badge status-queue">QUEUED</span>
+          </div>
+
+          <div class="order-card reveal-item">
+            <div class="order-thumb">💍</div>
+            <div class="order-info">
+              <div class="order-name">Custom Keychain</div>
+              <div class="order-meta">PLA+ · 0.15mm · 25% infill</div>
+              <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill" style="width:100%;background:var(--green);"></div></div>
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--green);margin-top:6px;">✓ Complete · Dispatched today</div>
+            </div>
+            <span class="status-badge status-done">DONE</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Layer Slicer Panel -->
+      <div>
+        <h2 style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:20px;">
+          ☰ Layer Slicer
+        </h2>
+        <div class="up-panel">
+          <!-- Slicer Preview -->
+          <div style="height:220px;border:1px solid var(--border-2);border-radius:var(--radius-sm);background:var(--bg-2);display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;overflow:hidden;" id="slicerPreview">
+            <canvas id="slicerCanvas" style="width:100%;height:100%;"></canvas>
+            <div style="position:absolute;top:10px;right:12px;font-family:var(--font-mono);font-size:0.6rem;color:rgba(0,229,255,0.5);letter-spacing:0.1em;" id="slicerLayerLabel">LAYER 1</div>
+          </div>
+          <div class="control-row">
+            <label>Layer <span id="layerVal" style="color:var(--cyan);">1</span> / 200</label>
+          </div>
+          <input type="range" class="range-input" id="layerSlider" min="1" max="200" value="1" />
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;">
+            <div style="padding:14px;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius-sm);">
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);letter-spacing:0.15em;margin-bottom:6px;">NOZZLE TEMP</div>
+              <div style="font-family:var(--font-display);font-size:1.2rem;color:var(--orange);font-weight:700;" id="tempNozzle">200°C</div>
+            </div>
+            <div style="padding:14px;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius-sm);">
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);letter-spacing:0.15em;margin-bottom:6px;">BED TEMP</div>
+              <div style="font-family:var(--font-display);font-size:1.2rem;color:var(--cyan);font-weight:700;" id="tempBed">60°C</div>
+            </div>
+            <div style="padding:14px;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius-sm);">
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);letter-spacing:0.15em;margin-bottom:6px;">PRINT SPEED</div>
+              <div style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-1);font-weight:700;">60 mm/s</div>
+            </div>
+            <div style="padding:14px;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius-sm);">
+              <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3);letter-spacing:0.15em;margin-bottom:6px;">INFILL</div>
+              <div style="font-family:var(--font-display);font-size:1.2rem;color:var(--violet);font-weight:700;">20%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- G-code stream -->
+        <div class="up-panel" style="margin-top:24px;">
+          <h2 style="font-family:var(--font-display);font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:16px;">
+            ▶ G-Code Stream
+          </h2>
+          <div id="gcodeStream" style="height:140px;overflow:hidden;font-family:var(--font-mono);font-size:0.68rem;color:rgba(0,229,255,0.55);line-height:1.9;background:var(--bg);border:1px solid var(--border-2);border-radius:var(--radius-sm);padding:12px 16px;"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-icon">⬡</div><span class="logo-text">3D<span class="accent">INVENZA</span></span></a><p>Next-generation holographic 3D printing platform.</p></div>
+      <div><div class="footer-col-title">Platform</div><ul class="footer-links"><li><a href="upload.html">Upload</a></li><li><a href="features.html">Features</a></li><li><a href="products.html">Products</a></li></ul></div>
+      <div><div class="footer-col-title">Account</div><ul class="footer-links"><li><a href="auth/login.html">Sign In</a></li><li><a href="auth/register.html">Register</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-col-title">Status</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3);"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;"></span>All systems operational</div><div style="color:var(--cyan);" id="sysClock">00:00:00</div></div></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 3D Invenza. All rights reserved.</p><div class="footer-social"><a class="social-btn" href="#">𝕏</a><a class="social-btn" href="#">⌥</a><a class="social-btn" href="contact.html">✉</a></div></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/jarvis.js"></script>
+<script>
+  // Layer slider
+  var layerSlider = document.getElementById('layerSlider');
+  var layerValEl  = document.getElementById('layerVal');
+  var slicerLbl   = document.getElementById('slicerLayerLabel');
+  var canvas      = document.getElementById('slicerCanvas');
+  var ctx         = canvas.getContext('2d');
+
+  function drawSlice(layer) {
+    canvas.width  = canvas.offsetWidth || 400;
+    canvas.height = canvas.offsetHeight || 220;
+    var w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    // Background
+    ctx.fillStyle = '#060c14'; ctx.fillRect(0, 0, w, h);
+    // Grid
+    ctx.strokeStyle = 'rgba(0,229,255,0.04)'; ctx.lineWidth = 1;
+    for (var x = 0; x < w; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+    for (var y = 0; y < h; y += 20) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+    // Draw layer cross-section (simplified)
+    var cx = w / 2, cy = h / 2;
+    var frac = layer / 200;
+    var r = 40 + frac * 30;
+    // Shell
+    ctx.strokeStyle = 'rgba(0,229,255,0.85)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+    // Inner walls
+    ctx.strokeStyle = 'rgba(0,229,255,0.4)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, r - 4, 0, Math.PI * 2); ctx.stroke();
+    // Infill lines
+    ctx.strokeStyle = 'rgba(124,58,237,0.4)'; ctx.lineWidth = 0.5;
+    for (var i = -r; i < r; i += 8) {
+      var yStart = cy + i, xLeft = cx - Math.sqrt(Math.max(0, (r-5)*(r-5) - i*i)), xRight = cx + Math.sqrt(Math.max(0, (r-5)*(r-5) - i*i));
+      ctx.beginPath(); ctx.moveTo(xLeft, yStart); ctx.lineTo(xRight, yStart); ctx.stroke();
+    }
+    // Nozzle indicator
+    ctx.fillStyle = 'rgba(0,229,255,0.9)';
+    var ang = performance.now() * 0.001 * 2 * Math.PI;
+    ctx.beginPath(); ctx.arc(cx + Math.cos(ang) * r, cy + Math.sin(ang) * r, 4, 0, Math.PI * 2); ctx.fill();
+    // Layer label
+    slicerLbl.textContent = 'LAYER ' + layer;
+  }
+
+  layerSlider.addEventListener('input', function() {
+    layerValEl.textContent = this.value;
+    drawSlice(parseInt(this.value));
+  });
+
+  (function animSlicer() {
+    requestAnimationFrame(animSlicer);
+    drawSlice(parseInt(layerSlider.value));
+  })();
+
+  // G-code stream
+  var gcodes = ['G1 X12.4 Y18.2 E0.038', 'G1 X13.0 Y18.9 E0.042', 'M104 S200', 'G1 X13.8 Y19.5 E0.031', 'G28 ; Home', 'G1 Z0.20 F600', 'M82 ; Absolute', 'G92 E0', 'G1 E5 F300', 'G0 X10.0 Y10.0 F3000'];
+  var gcodeEl = document.getElementById('gcodeStream');
+  var gcIdx = 0;
+  setInterval(function() {
+    var line = document.createElement('div');
+    line.textContent = '> ' + gcodes[gcIdx % gcodes.length] + '  ; layer ' + layerSlider.value;
+    gcodeEl.appendChild(line);
+    if (gcodeEl.children.length > 10) gcodeEl.removeChild(gcodeEl.firstChild);
+    gcodeEl.scrollTop = gcodeEl.scrollHeight;
+    gcIdx++;
+  }, 600);
+</script>
+</body>
+</html>

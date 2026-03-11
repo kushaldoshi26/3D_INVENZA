@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Model — 3D Invenza</title>
+  <meta name="description" content="Upload your 3D model file, configure print settings, and get an instant price estimate." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/holographic.css" />
+  <link rel="stylesheet" href="css/jarvis.css" />
+</head>
+<body>
+
+<div id="dataStream"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⬡</div>
+      <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"     class="nav-link">Home</a></li>
+      <li><a href="features.html"  class="nav-link">Features</a></li>
+      <li><a href="products.html"  class="nav-link">Products</a></li>
+      <li><a href="upload.html"    class="nav-link active">Upload</a></li>
+      <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="contact.html"   class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="auth/login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="section" style="padding-top:130px;padding-bottom:48px;background:var(--bg-2);border-bottom:1px solid var(--border-2);">
+  <div class="container">
+    <span class="section-tag">Upload</span>
+    <h1 class="display-2">Upload <span class="gradient-text">Your Model</span></h1>
+    <p style="color:var(--text-2);font-size:1.05rem;max-width:500px;line-height:1.75;margin-top:16px;">
+      Upload your 3D file, configure print settings, and get an instant price estimate. No account needed to preview.
+    </p>
+  </div>
+</section>
+
+<!-- UPLOAD AREA -->
+<section class="section bg-grid">
+  <div class="container">
+    <div class="grid-2" style="gap:36px;align-items:start;">
+
+      <!-- Left: Upload + Settings -->
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <!-- Drop Zone -->
+        <div class="up-panel">
+          <h2 style="font-family:var(--font-display);font-size:0.9rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-1);margin-bottom:24px;">
+            ⬡ Upload File
+          </h2>
+          <div class="drop-zone" id="dropZone">
+            <input type="file" id="fileInput" accept=".stl,.obj,.3mf,.gcode" />
+            <div class="drop-icon">⬆</div>
+            <div class="drop-title">Drag &amp; Drop Your File</div>
+            <div class="drop-sub">or click to browse</div>
+            <div class="drop-formats">
+              <span class="format-pill">.STL</span>
+              <span class="format-pill">.OBJ</span>
+              <span class="format-pill">.3MF</span>
+              <span class="format-pill">.GCODE</span>
+            </div>
+          </div>
+
+          <!-- File Info (hidden by default) -->
+          <div id="fileInfo" style="display:none;margin-top:16px;padding:16px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--cyan-dim);">
+            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--cyan);letter-spacing:0.1em;" id="fileName">—</div>
+            <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);margin-top:4px;" id="fileSize">—</div>
+          </div>
+        </div>
+
+        <!-- Material -->
+        <div class="up-panel">
+          <h2 style="font-family:var(--font-display);font-size:0.9rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-1);margin-bottom:20px;">
+            ◆ Material
+          </h2>
+          <div class="mat-grid" id="materialGrid">
+            <button class="mat-btn active" data-mat="PLA+" data-rate="14.9">PLA+</button>
+            <button class="mat-btn" data-mat="ABS"  data-rate="17.9">ABS</button>
+            <button class="mat-btn" data-mat="PETG" data-rate="19.9">PETG</button>
+            <button class="mat-btn" data-mat="TPU"  data-rate="24.9">TPU</button>
+            <button class="mat-btn" data-mat="Nylon" data-rate="29.9">Nylon</button>
+            <button class="mat-btn" data-mat="Resin" data-rate="39.9">Resin</button>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="up-panel">
+          <h2 style="font-family:var(--font-display);font-size:0.9rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-1);margin-bottom:24px;">
+            ⚙ Print Settings
+          </h2>
+          <div class="form-group">
+            <div class="control-row">
+              <label>Layer Height <span id="layerVal">0.20</span> mm</label>
+            </div>
+            <input type="range" class="range-input" id="layerSlider" min="0.05" max="0.40" step="0.05" value="0.20" data-label-target="layerVal" data-fmt="float2" />
+          </div>
+          <div class="form-group">
+            <div class="control-row">
+              <label>Infill <span id="infillVal">20</span>%</label>
+            </div>
+            <input type="range" class="range-input" id="infillSlider" min="5" max="100" step="5" value="20" data-label-target="infillVal" />
+          </div>
+          <div class="form-group">
+            <div class="control-row">
+              <label>Print Speed <span id="speedVal">60</span> mm/s</label>
+            </div>
+            <input type="range" class="range-input" id="speedSlider" min="30" max="120" step="10" value="60" data-label-target="speedVal" />
+          </div>
+
+          <!-- Supports Toggle -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+            <label style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--text-2);text-transform:uppercase;">Generate Supports</label>
+            <label style="position:relative;display:inline-block;width:42px;height:22px;cursor:pointer;">
+              <input type="checkbox" id="supportsToggle" style="opacity:0;width:0;height:0;" />
+              <span style="position:absolute;inset:0;background:var(--bg-3);border:1px solid var(--border);border-radius:99px;transition:0.3s;" id="toggleBg"></span>
+              <span style="position:absolute;top:3px;left:3px;width:14px;height:14px;background:var(--text-2);border-radius:50%;transition:0.3s;" id="toggleKnob"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Preview + Price Summary -->
+      <div style="display:flex;flex-direction:column;gap:24px;position:sticky;top:88px;">
+        <!-- 3D Preview -->
+        <div class="up-panel" style="min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border-2);background:var(--bg-2);">
+          <div style="font-size:3rem;margin-bottom:16px;opacity:0.3;" id="previewIcon">◈</div>
+          <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-3);letter-spacing:0.2em;text-transform:uppercase;" id="previewLabel">AWAITING FILE UPLOAD</div>
+        </div>
+
+        <!-- Price -->
+        <div class="price-display">
+          <div class="price-label">Estimated Price</div>
+          <div class="price-amount" id="priceAmt">₹0</div>
+          <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);margin-top:8px;">Based on ~100g model weight</div>
+        </div>
+
+        <!-- Summary -->
+        <div class="up-panel">
+          <h2 style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;">
+            ◈ Order Summary
+          </h2>
+          <div style="display:flex;flex-direction:column;gap:12px;font-family:var(--font-mono);font-size:0.72rem;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">MATERIAL</span><span style="color:var(--cyan);" id="sumMat">PLA+</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">LAYER</span><span style="color:var(--text-1);" id="sumLayer">0.20 mm</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">INFILL</span><span style="color:var(--text-1);" id="sumInfill">20%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">SPEED</span><span style="color:var(--text-1);" id="sumSpeed">60 mm/s</span></div>
+            <div style="height:1px;background:var(--border-2);"></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">FILE</span><span style="color:var(--text-1);" id="sumFile">—</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span style="color:var(--text-2);">TOTAL</span><span style="color:var(--cyan);font-size:1.1rem;font-weight:700;" id="sumTotal">₹0</span></div>
+          </div>
+        </div>
+
+        <a href="auth/login.html" class="btn btn-primary btn-lg btn-glow" style="width:100%;justify-content:center;">
+          Proceed to Checkout
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div style="text-align:center;font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);letter-spacing:0.1em;">
+          SECURE · ENCRYPTED · PRECISION PRINTING
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><div class="logo-icon">⬡</div><span class="logo-text">3D<span class="accent">INVENZA</span></span></a>
+        <p>Next-generation holographic 3D printing platform.</p>
+      </div>
+      <div><div class="footer-col-title">Platform</div><ul class="footer-links"><li><a href="upload.html">Upload</a></li><li><a href="features.html">Features</a></li><li><a href="products.html">Products</a></li></ul></div>
+      <div><div class="footer-col-title">Account</div><ul class="footer-links"><li><a href="auth/login.html">Sign In</a></li><li><a href="auth/register.html">Register</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-col-title">Status</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3);"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;"></span>All systems operational</div><div style="color:var(--cyan);" id="sysClock">00:00:00</div></div></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 3D Invenza. All rights reserved.</p><div class="footer-social"><a class="social-btn" href="#">𝕏</a><a class="social-btn" href="#">⌥</a><a class="social-btn" href="contact.html">✉</a></div></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/jarvis.js"></script>
+<script>
+  // Upload
+  var activeMat = 'PLA+', activeRate = 14.9;
+  var dropZone = document.getElementById('dropZone');
+  var fileInput = document.getElementById('fileInput');
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+  function handleFile(f) {
+    document.getElementById('fileInfo').style.display = 'block';
+    document.getElementById('fileName').textContent = f.name;
+    document.getElementById('fileSize').textContent = (f.size / 1024).toFixed(1) + ' KB';
+    document.getElementById('previewIcon').textContent = '◈';
+    document.getElementById('previewLabel').textContent = f.name.toUpperCase() + ' — LOADED';
+    document.getElementById('previewLabel').style.color = 'var(--cyan)';
+    document.getElementById('sumFile').textContent = f.name.split('.').pop().toUpperCase();
+    updatePrice();
+  }
+
+  // Material
+  document.querySelectorAll('.mat-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.mat-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      activeMat = b.dataset.mat; activeRate = parseFloat(b.dataset.rate);
+      document.getElementById('sumMat').textContent = activeMat;
+      updatePrice();
+    });
+  });
+
+  // Sliders
+  document.getElementById('layerSlider').addEventListener('input', function() {
+    document.getElementById('layerVal').textContent = parseFloat(this.value).toFixed(2);
+    document.getElementById('sumLayer').textContent = parseFloat(this.value).toFixed(2) + ' mm';
+    updatePrice();
+  });
+  document.getElementById('infillSlider').addEventListener('input', function() {
+    document.getElementById('infillVal').textContent = this.value;
+    document.getElementById('sumInfill').textContent = this.value + '%';
+    updatePrice();
+  });
+  document.getElementById('speedSlider').addEventListener('input', function() {
+    document.getElementById('speedVal').textContent = this.value;
+    document.getElementById('sumSpeed').textContent = this.value + ' mm/s';
+  });
+
+  // Toggle
+  var toggle = document.getElementById('supportsToggle');
+  toggle.addEventListener('change', function() {
+    document.getElementById('toggleBg').style.background = this.checked ? 'var(--cyan)' : 'var(--bg-3)';
+    document.getElementById('toggleKnob').style.background = this.checked ? '#000' : 'var(--text-2)';
+    document.getElementById('toggleKnob').style.left = this.checked ? '23px' : '3px';
+  });
+
+  function updatePrice() {
+    var weight = 100;
+    var infill = parseInt(document.getElementById('infillSlider').value);
+    var est = Math.round(activeRate * weight * (infill / 100) * 0.5 + activeRate * 5);
+    document.getElementById('priceAmt').textContent = '₹' + est;
+    document.getElementById('sumTotal').textContent = '₹' + est;
+  }
+  updatePrice();
+</script>
+</body>
+</html>

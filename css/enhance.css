@@ -1,0 +1,835 @@
+/* ============================================
+   3D INVENZA — PREMIUM ENHANCEMENT LAYER v2
+   Append to end of style.css
+   ============================================ */
+
+/* ─── Global Canvas / Background Layers ─────── */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    /* Behind all page content */
+}
+
+/* Data stream stays completely behind everything — purely decorative */
+#dataStream {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    line-height: 1.3;
+    color: rgba(0, 245, 255, 0.018);
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+    z-index: -1;
+    /* Truly behind everything */
+    overflow: hidden;
+    user-select: none;
+}
+
+
+/* ─── Animated Background Orbs ──────────────── */
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: orbDrift 12s ease-in-out infinite;
+    z-index: 0;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0, 245, 255, 0.07) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation-duration: 14s;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.09) 0%, transparent 70%);
+    bottom: -80px;
+    left: -80px;
+    animation-duration: 10s;
+    animation-delay: -4s;
+}
+
+.orb-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.06) 0%, transparent 70%);
+    top: 40%;
+    left: 50%;
+    animation-duration: 16s;
+    animation-delay: -8s;
+}
+
+@keyframes orbDrift {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -40px) scale(1.05);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+}
+
+/* ─── Shimmer Button Effect ─────────────────── */
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+    transform: skewX(-20deg);
+    transition: none;
+}
+
+.btn-primary:hover::after {
+    animation: shimmer 0.6s ease forwards;
+}
+
+@keyframes shimmer {
+    to {
+        left: 160%;
+    }
+}
+
+/* ─── Neon Border Sweep on Cards ────────────── */
+.feature-card::after,
+.step-card::after,
+.stat-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--cyan), var(--violet), var(--orange), var(--cyan));
+    background-size: 300% 300%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+    animation: borderRotate 4s linear infinite;
+    pointer-events: none;
+}
+
+.feature-card:hover::after,
+.step-card:hover::after,
+.stat-card:hover::after {
+    opacity: 1;
+}
+
+@keyframes borderRotate {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ─── Glowing Headline Text ─────────────────── */
+.hero-title {
+    text-shadow: 0 0 80px rgba(0, 245, 255, 0.08);
+}
+
+.gradient-text {
+    animation: gradientShift 4s ease infinite;
+    background-size: 200% auto;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% center;
+    }
+
+    50% {
+        background-position: 100% center;
+    }
+
+    100% {
+        background-position: 0% center;
+    }
+}
+
+/* ─── Enhanced Section Dividers ─────────────── */
+.section-divider {
+    position: relative;
+    height: 1px;
+    margin: 0 auto;
+    max-width: 800px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
+    opacity: 0.3;
+}
+
+/* ─── Glassy Navbar Enhancement ─────────────── */
+.navbar.scrolled {
+    box-shadow: 0 4px 30px rgba(0, 245, 255, 0.05);
+}
+
+.nav-link {
+    position: relative;
+    padding: 4px 0;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    right: 50%;
+    height: 1px;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    transition: left 0.3s, right 0.3s;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+    left: 0;
+    right: 0;
+}
+
+.nav-link::after {
+    display: none;
+}
+
+/* ─── Hero Badge Enhanced ────────────────────── */
+.hero-badge {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.08), rgba(124, 58, 237, 0.08));
+    border: 1px solid rgba(0, 245, 255, 0.25);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    font-family: var(--font-display);
+    letter-spacing: 0.1em;
+}
+
+/* ─── Hologram Enhanced Rings ────────────────── */
+.ring-1 {
+    border: 1px dashed rgba(0, 245, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.05) inset;
+}
+
+.ring-2 {
+    border: 1px solid;
+    border-image: none;
+    background: none;
+    border-color: rgba(124, 58, 237, 0.25);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.05) inset;
+}
+
+.ring-3 {
+    border: 1.5px solid rgba(249, 115, 22, 0.3);
+    animation-direction: reverse;
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.06) inset;
+}
+
+/* ─── Hologram Floor Reflection ─────────────── */
+.hologram-floor {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 20px;
+    background: radial-gradient(ellipse, var(--cyan-glow) 0%, transparent 70%);
+    filter: blur(6px);
+    animation: floorPulse 3s ease-in-out infinite;
+}
+
+@keyframes floorPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        width: 160px;
+    }
+
+    50% {
+        opacity: 0.6;
+        width: 200px;
+    }
+}
+
+/* ─── Stats Section — Gradient Border Accent ── */
+.stats-section {
+    position: relative;
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0, 245, 255, 0.03), transparent);
+    pointer-events: none;
+}
+
+.stat-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(10, 20, 40, 0.8), rgba(5, 12, 28, 0.9));
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0.5;
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+.stat-number {
+    text-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+}
+
+/* ─── Step Cards — Flow Connector ───────────── */
+.steps-grid {
+    position: relative;
+}
+
+.steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 80px;
+    left: calc(33% - 0px);
+    right: calc(33%);
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.step-card {
+    background: linear-gradient(145deg, rgba(10, 22, 45, 0.85), rgba(5, 12, 28, 0.9));
+}
+
+.step-icon {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(124, 58, 237, 0.08));
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.step-card:hover .step-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.15);
+}
+
+.step-card h3 {
+    background: linear-gradient(135deg, #fff 40%, var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ─── Feature Cards — Depth Layering ────────── */
+.feature-card {
+    background: linear-gradient(145deg, rgba(10, 22, 45, 0.85), rgba(4, 10, 24, 0.95));
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.feature-card:hover {
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(0, 245, 255, 0.15),
+        0 0 40px rgba(0, 245, 255, 0.04);
+}
+
+.feature-icon {
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent);
+}
+
+/* ─── Product Visual Backgrounds ────────────── */
+.product-visual {
+    background: radial-gradient(ellipse at center, rgba(0, 245, 255, 0.04), transparent);
+}
+
+.product-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* ─── CTA Card Premium ───────────────────────── */
+.cta-card {
+    background: linear-gradient(135deg, rgba(10, 22, 45, 0.9), rgba(15, 10, 35, 0.9));
+    box-shadow:
+        0 0 0 1px rgba(0, 245, 255, 0.08),
+        0 40px 80px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Marquee / Trust Line ───────────────────── */
+.marquee-wrap {
+    overflow: hidden;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    margin: 0 0 0 0;
+}
+
+.marquee-track {
+    display: flex;
+    gap: 60px;
+    width: max-content;
+    animation: marqueeScroll 22s linear infinite;
+}
+
+.marquee-item {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.marquee-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--cyan);
+    flex-shrink: 0;
+}
+
+@keyframes marqueeScroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ─── Testimonial / Quote section ───────────── */
+.quote-section {
+    padding: 80px 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.quote-card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px;
+    background: linear-gradient(145deg, rgba(10, 22, 45, 0.8), rgba(4, 10, 24, 0.9));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    position: relative;
+}
+
+.quote-card::before {
+    content: '"';
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Georgia, serif;
+    font-size: 6rem;
+    color: var(--cyan);
+    opacity: 0.15;
+    line-height: 1;
+}
+
+.quote-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    font-style: italic;
+}
+
+.quote-author {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    text-transform: uppercase;
+}
+
+/* ─── FAQ Accordion Section ──────────────────── */
+.faq-section {
+    padding: 80px 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    background: linear-gradient(145deg, rgba(10, 22, 45, 0.8), rgba(4, 10, 24, 0.9));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.3s;
+}
+
+.faq-item.open {
+    border-color: rgba(0, 245, 255, 0.25);
+}
+
+.faq-item.open .faq-icon {
+    transform: rotate(45deg);
+    color: var(--orange);
+}
+
+.faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    gap: 16px;
+}
+
+.faq-icon {
+    font-size: 1.2rem;
+    color: var(--cyan);
+    flex-shrink: 0;
+    transition: transform 0.3s, color 0.3s;
+    line-height: 1;
+}
+
+.faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.75;
+}
+
+.faq-item.open .faq-a {
+    max-height: 200px;
+    padding: 0 24px 20px;
+}
+
+/* ─── Floating Particles (hero specific) ────── */
+.hero-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat linear infinite;
+    opacity: 0;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+
+    10% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+
+    90% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-160px) scale(0.5);
+    }
+}
+
+/* ─── Smooth Section Entry (enhanced) ───────── */
+.reveal-item {
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-item:nth-child(odd) {
+    transform: translateY(40px);
+}
+
+.reveal-item:nth-child(even) {
+    transform: translateY(40px) translateX(8px);
+}
+
+.reveal-item.visible {
+    transform: none !important;
+}
+
+/* ─── Upload Page — Enhanced ─────────────────── */
+.upload-zone {
+    background: linear-gradient(145deg, rgba(10, 22, 45, 0.8), rgba(4, 10, 24, 0.9));
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.upload-zone:hover {
+    transform: scale(1.01);
+}
+
+.upload-icon svg {
+    filter: drop-shadow(0 0 12px rgba(0, 245, 255, 0.4));
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ─── Dashboard Enhanced Progress ───────────── */
+.progress-bar-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    right: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShimmer 2s linear infinite;
+}
+
+@keyframes progressShimmer {
+    to {
+        left: 100%;
+        right: -100%;
+    }
+}
+
+/* ─── Footer Subtle Enhancement ─────────────── */
+.footer {
+    background: linear-gradient(to top, rgba(0, 245, 255, 0.02), transparent);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0.3;
+}
+
+/* ─── Keychain Form Enhanced ─────────────────── */
+.field-input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.08), 0 0 20px rgba(0, 245, 255, 0.06);
+}
+
+/* ─── Responsive Fixes for enhancements ──────── */
+@media (max-width: 640px) {
+    .marquee-wrap {
+        display: none;
+    }
+
+    .quote-card {
+        padding: 32px 24px;
+    }
+
+    .orb {
+        display: none;
+    }
+}
+
+/* ─── Navbar Register Button ─────────────── */
+.nav-register {
+    padding: 10px 20px;
+    font-size: 0.72rem;
+    font-family: var(--font-display, 'Orbitron', monospace);
+    letter-spacing: 0.06em;
+}
+
+/* ─── Hologram Canvas Container ──────────── */
+.hologram-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 620px;
+    /* Increased from 520px */
+    min-height: 500px;
+}
+
+#heroCanvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+/* ─── Holo model navigator dots ─────────── */
+.holo-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 245, 255, 0.25);
+    border: 1px solid rgba(0, 245, 255, 0.4);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    padding: 0;
+    outline: none;
+}
+
+.holo-dot:hover {
+    background: rgba(0, 245, 255, 0.5);
+    transform: scale(1.3);
+}
+
+.holo-dot.active {
+    background: #00f5ff;
+    box-shadow: 0 0 10px #00f5ff, 0 0 20px rgba(0, 245, 255, 0.4);
+    transform: scale(1.25);
+}
+
+/* ─── Tech HUD Frames for Glass Panels ─────── */
+.glass-panel {
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-panel::before,
+.glass-panel::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--cyan-glow, #00f5ff);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.6;
+}
+
+.glass-panel::before {
+    top: 5px;
+    left: 5px;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.glass-panel::after {
+    bottom: 5px;
+    right: 5px;
+    border-left: 0;
+    border-top: 0;
+}
+
+/* ─── Global Data Stream Background ────────── */
+body::before {
+    content: '01011001 01101111 01110101 00100000 01100001 01110010 01100101 00100000 01110111 01100001 01110100 01100011 01101000 01101001 01101110 01100111 00100000 01001001 01001110 01010110 01000101 01001110 01011010 01000001';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    color: var(--cyan-glow, #00f5ff);
+    opacity: 0.03;
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.2;
+    z-index: -1;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* ─── Enhanced Glow Utilities ──────────────── */
+.text-glow-cyan {
+    text-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.text-glow-violet {
+    text-shadow: 0 0 10px var(--violet-glow);
+}
+
+/* ─── Holo model name label ── */
+#holoModelName {
+    position: absolute;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #00f5ff;
+    text-shadow: 0 0 12px var(--cyan-glow, #00f5ff);
+    transition: opacity 0.4s;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* ─── Holo dot row ───────────────────────── */
+.holo-dot-row {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

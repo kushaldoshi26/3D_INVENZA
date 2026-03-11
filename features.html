@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — 3D Invenza</title>
+  <meta name="description" content="Explore all features of 3D Invenza: holographic preview, layer slicing, 12+ materials, live dashboard, and precision fabrication." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/holographic.css" />
+  <link rel="stylesheet" href="css/jarvis.css" />
+</head>
+<body>
+
+<div id="dataStream"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⬡</div>
+      <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"     class="nav-link">Home</a></li>
+      <li><a href="features.html"  class="nav-link active">Features</a></li>
+      <li><a href="products.html"  class="nav-link">Products</a></li>
+      <li><a href="upload.html"    class="nav-link">Upload</a></li>
+      <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+      <li><a href="contact.html"   class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="auth/login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="section" style="padding-top:130px;padding-bottom:48px;background:var(--bg-2);border-bottom:1px solid var(--border-2);">
+  <div class="container">
+    <div class="orb orb-1"></div>
+    <span class="section-tag">Capabilities</span>
+    <h1 class="display-2" style="max-width:640px;">Professional <span class="gradient-text">Printing Features</span></h1>
+    <p style="color:var(--text-2);font-size:1.05rem;max-width:540px;line-height:1.75;margin-top:16px;">
+      Everything you need to go from idea to physical object, with industrial-grade tools and a holographic interface.
+    </p>
+  </div>
+</section>
+
+<!-- MAIN FEATURES GRID -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal-item">
+      <span class="section-tag">Core Platform</span>
+      <h2>Platform <span class="gradient-text">Features</span></h2>
+      <p>Every tool you need, refined to perfection.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--cyan);font-size:1.6rem;">◈</div>
+        <h3>Holographic Preview</h3>
+        <p>Real-time 3D viewer powered by Three.js. Rotate, zoom, and inspect your model from any angle before printing. Supports STL, OBJ, and 3MF.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--violet);font-size:1.6rem;">☰</div>
+        <h3>Layer-by-Layer Slicer</h3>
+        <p>Slide through every layer of your print. Visualise walls, infill, supports, and rafts. Catch issues before they cost you material.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--cyan);font-size:1.6rem;">⚡</div>
+        <h3>Neural Engine</h3>
+        <p>AI-powered G-code optimisation that reduces fabrication time by up to 35% while maintaining tolerances of ±0.05mm.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--orange);font-size:1.6rem;">◆</div>
+        <h3>12+ Materials</h3>
+        <p>PLA, PLA+, ABS, PETG, TPU, ASA, HIPS, Nylon, Standard Resin, Tough Resin, Carbon Fiber, and Wood PLA — with real-time cost calculation.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--cyan);font-size:1.6rem;">☁</div>
+        <h3>Live Dashboard</h3>
+        <p>Track your print live: G-code stream, layer progress bar, temperatures, and print time remaining — all in real time.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--violet);font-size:1.6rem;">♾</div>
+        <h3>Dental &amp; Medical</h3>
+        <p>Dedicated upload workflow for dental impression models. Supports DFM (Design for Manufacturing) analysis for precise medical parts.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--orange);font-size:1.6rem;">◐</div>
+        <h3>Instant Cost Estimate</h3>
+        <p>Configure material, layer height, and infill and see the price update in real-time — no surprises at checkout.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--cyan);font-size:1.6rem;">✉</div>
+        <h3>Order Tracking</h3>
+        <p>Every order gets a timeline: Queued → Printing → Quality Check → Dispatched → Delivered. Stay updated at every step.</p>
+      </div>
+      <div class="feature-card reveal-item">
+        <div class="feature-icon" style="color:var(--violet);font-size:1.6rem;">🎓</div>
+        <h3>Student Program</h3>
+        <p>Free personalised keychain for every registered student. 15% discount on all prints with a valid student ID.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS TABLE -->
+<div class="section-divider"></div>
+<section class="section" style="background:var(--bg-2);">
+  <div class="container">
+    <div class="section-header reveal-item">
+      <span class="section-tag">Materials</span>
+      <h2>Supported <span class="gradient-text">Filaments</span></h2>
+    </div>
+    <div class="card reveal-item" style="overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:0.78rem;">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border-2);">
+            <th style="text-align:left;padding:14px 18px;color:var(--text-3);letter-spacing:0.15em;text-transform:uppercase;">Material</th>
+            <th style="text-align:left;padding:14px 18px;color:var(--text-3);letter-spacing:0.15em;text-transform:uppercase;">Temp</th>
+            <th style="text-align:left;padding:14px 18px;color:var(--text-3);letter-spacing:0.15em;text-transform:uppercase;">Strength</th>
+            <th style="text-align:left;padding:14px 18px;color:var(--text-3);letter-spacing:0.15em;text-transform:uppercase;">Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border-2);transition:background 0.2s;" onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
+            <td style="padding:14px 18px;"><span class="badge-cyan" style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.65rem;">PLA+</span></td>
+            <td style="padding:14px 18px;color:var(--text-1);">200°C</td>
+            <td style="padding:14px 18px;color:var(--cyan);">★★★☆☆</td>
+            <td style="padding:14px 18px;color:var(--text-2);">Prototypes, Models</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border-2);" onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
+            <td style="padding:14px 18px;"><span class="badge-orange" style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.65rem;">ABS</span></td>
+            <td style="padding:14px 18px;color:var(--text-1);">240°C</td>
+            <td style="padding:14px 18px;color:var(--cyan);">★★★★☆</td>
+            <td style="padding:14px 18px;color:var(--text-2);">Functional Parts</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border-2);" onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
+            <td style="padding:14px 18px;"><span class="badge-cyan" style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.65rem;">PETG</span></td>
+            <td style="padding:14px 18px;color:var(--text-1);">230°C</td>
+            <td style="padding:14px 18px;color:var(--cyan);">★★★★☆</td>
+            <td style="padding:14px 18px;color:var(--text-2);">Food-safe, Flexible</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border-2);" onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
+            <td style="padding:14px 18px;"><span class="badge-violet" style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.65rem;">TPU</span></td>
+            <td style="padding:14px 18px;color:var(--text-1);">220°C</td>
+            <td style="padding:14px 18px;color:var(--cyan);">★★★☆☆</td>
+            <td style="padding:14px 18px;color:var(--text-2);">Flexible, Grips</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border-2);" onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
+            <td style="padding:14px 18px;"><span class="badge-orange" style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.65rem;">Nylon</span></td>
+            <td style="padding:14px 18px;color:var(--text-1);">260°C</td>
+            <td style="padding:14px 18px;color:var(--cyan);">★★★★★</td>
+            <td style="padding:14px 18px;color:var(--text-2);">Engineering Parts</td>
+          </tr>
+          <tr onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
+            <td style="padding:14px 18px;"><span class="badge-violet" style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.65rem;">Carbon Fiber</span></td>
+            <td style="padding:14px 18px;color:var(--text-1);">220°C</td>
+            <td style="padding:14px 18px;color:var(--cyan);">★★★★★</td>
+            <td style="padding:14px 18px;color:var(--text-2);">Aerospace, Racing</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="section-divider"></div>
+<section class="section">
+  <div class="container">
+    <div class="cta-card reveal-item">
+      <div class="holo-connector">ALL SYSTEMS ACTIVE</div>
+      <span class="section-tag">Get Started</span>
+      <h2>Ready to <span class="gradient-text">Start Printing?</span></h2>
+      <p>Upload your model now and see all these features in action.</p>
+      <div class="cta-actions">
+        <a href="upload.html" class="btn btn-primary btn-lg btn-glow">Upload Your Model</a>
+        <a href="products.html" class="btn btn-ghost btn-lg">Browse Products</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><div class="logo-icon">⬡</div><span class="logo-text">3D<span class="accent">INVENZA</span></span></a>
+        <p>Next-generation holographic 3D printing platform.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="upload.html">Upload Model</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Account</div>
+        <ul class="footer-links">
+          <li><a href="auth/login.html">Sign In</a></li>
+          <li><a href="auth/register.html">Register</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Status</div>
+        <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-3);display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;"></span>All systems operational</div>
+          <div style="color:var(--cyan);" id="sysClock">00:00:00</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 3D Invenza. All rights reserved.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#">𝕏</a>
+        <a class="social-btn" href="#">⌥</a>
+        <a class="social-btn" href="#">in</a>
+        <a class="social-btn" href="contact.html">✉</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/jarvis.js"></script>
+</body>
+</html>

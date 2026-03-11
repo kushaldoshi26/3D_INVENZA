@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — 3D Invenza</title>
+  <meta name="description" content="Sign in to your 3D Invenza account to track orders, upload models, and manage your profile." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/holographic.css" />
+</head>
+<body>
+
+<div id="dataStream"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background orbs -->
+<div class="orb orb-1" style="position:fixed;"></div>
+<div class="orb orb-2" style="position:fixed;"></div>
+
+<!-- Back nav -->
+<div style="position:fixed;top:0;left:0;right:0;padding:20px 32px;z-index:100;display:flex;align-items:center;gap:16px;">
+  <a href="../index.html" class="nav-logo">
+    <div class="logo-icon">⬡</div>
+    <span class="logo-text">3D<span class="accent">INVENZA</span></span>
+  </a>
+</div>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--cyan),var(--violet));border-radius:16px;display:grid;place-items:center;font-size:1.5rem;color:#000;margin:0 auto 20px;">⬡</div>
+    </div>
+    <div class="auth-title">Welcome Back</div>
+    <div class="auth-sub">Sign in to your 3D Invenza account</div>
+
+    <!-- Status indicator -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:32px;">
+      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px rgba(34,197,94,0.8);"></span>
+      <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);letter-spacing:0.15em;">SECURE CONNECTION ACTIVE</span>
+    </div>
+
+    <form action="../backend/auth/login.php" method="POST" onsubmit="return validateLogin()">
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required />
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.82rem;color:var(--text-2);">
+          <input type="checkbox" name="remember" style="width:14px;height:14px;accent-color:var(--cyan);" />
+          Remember me
+        </label>
+        <a href="#" style="font-size:0.82rem;color:var(--cyan);">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-glow" style="width:100%;justify-content:center;">
+        Sign In
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+
+      <div id="loginError" style="display:none;margin-top:16px;text-align:center;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.1em;color:#ef4444;padding:10px;border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);background:rgba(239,68,68,0.05);">
+        Invalid credentials. Please try again.
+      </div>
+    </form>
+
+    <div class="auth-divider">or</div>
+
+    <div style="text-align:center;font-size:0.88rem;color:var(--text-2);">
+      Don't have an account?
+      <a href="register.html" class="auth-link" style="margin-left:4px;">Create one →</a>
+    </div>
+
+    <!-- Admin link -->
+    <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border-2);text-align:center;">
+      <a href="../admin/admin.html" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase;">Admin Panel ↗</a>
+    </div>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+  // Cursor for auth page
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (dot && ring) {
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+    (function a() { rx += (mx-rx)*.12; ry += (my-ry)*.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(a); })();
+  }
+  function validateLogin() {
+    var e = document.getElementById('email').value.trim();
+    var p = document.getElementById('password').value;
+    if (!e || !p) { document.getElementById('loginError').style.display = 'block'; return false; }
+    return true;
+  }
+</script>
+</body>
+</html>

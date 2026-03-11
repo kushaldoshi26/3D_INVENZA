@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-main antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-tech tracking-wider uppercase;
+    }
+}
+
+.glass-panel {
+    @apply bg-brand-elevated backdrop-blur-md border border-white/5;
+}
+
+.text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-accent to-[#7000ff];
+}
+
+.glow-btn {
+    @apply relative overflow-hidden transition-all duration-300;
+}
+
+.glow-btn:hover {
+    @apply shadow-[0_0_20px_rgba(0, 242, 255, 0.4)] -translate-y-0.5;
+}
